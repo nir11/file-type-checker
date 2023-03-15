@@ -1,0 +1,38 @@
+{
+  "name": "file-type-checker",
+  "version": "1.0.0",
+  "description": "Detect and validate file types by their signatures (✨magic numbers✨)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "test": "jest --config jest.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nir11/file-type-checker.git"
+  },
+  "keywords": [
+    "file",
+    "type",
+    "signature",
+    "magic",
+    "detect",
+    "validate"
+  ],
+  "author": "Nir Almog",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nir11/file-type-checker/issues"
+  },
+  "homepage": "https://github.com/nir11/file-type-checker#readme",
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.11.18",
+    "ts-jest": "^29.0.5"
+  }
+}
