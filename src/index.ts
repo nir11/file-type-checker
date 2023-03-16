@@ -1,8 +1,9 @@
-import * as validatorsFunctions from "./validation";
-import * as infoFunctions from "./detection";
+import * as detectionFunctions from "./detection";
+import * as validationFunctions from "./validation";
 
 const fileTypeChecker = {
-  ...validatorsFunctions,
-  ...infoFunctions,
+  ...detectionFunctions,
+  ...validationFunctions,
 };
-export default fileTypeChecker;
+
+export = fileTypeChecker;
