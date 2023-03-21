@@ -84,8 +84,8 @@ import fileTypeChecker from "file-type-checker";
 
 // ... Read file as `Array<number>`, `ArrayBuffer`, or `Uint8Array`.
 
-fileTypeChecker.validateFileType(file, ["png", "gif", "jpeg]);  // Returns true if the file is an image from the accepted list
-fileTypeChecker.detectFile(file);  // Returns the detected file info
+fileTypeChecker.validateFileType(file, ["png", "gif", "jpeg"]); // Returns true if the file is an image from the accepted list
+fileTypeChecker.detectFile(file); // Returns the detected file info
 fileTypeChecker.isPNG(file); // Returns true if the file is a valid PNG image
 
 // ... And many more validator functions for each supported type.
