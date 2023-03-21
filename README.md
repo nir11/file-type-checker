@@ -619,31 +619,31 @@ const isZIP = fileTypeChecker.isZIP(file); // Returns true if the file is a vali
 
     Checks whether a file is an OGG video by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid OGG video.
+    Returns a `boolean` indicating whether the file is a valid OGG video.
 
     </details>
-    
+
     </details>
 
     <details><summary>fileTypeChecker.isSWF(file)</summary>
-    
+
     Checks whether a file is a SWF video by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid SWF video.
+    Returns a `boolean` indicating whether the file is a valid SWF video.
 
     </details>
 
     <details><summary>fileTypeChecker.isWEBM(file)</summary>
-    
+
     Checks whether a file is a WEBM video by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid WEBM video.
+    Returns a `boolean` indicating whether the file is a valid WEBM video.
 
     </details>
 
@@ -668,49 +668,49 @@ const isZIP = fileTypeChecker.isZIP(file); // Returns true if the file is a vali
 
     Checks whether a file is an AMR audio by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid AMR audio.
+    Returns a `boolean` indicating whether the file is a valid AMR audio.
 
     </details>
 
     <details><summary>fileTypeChecker.isFLAC(file)</summary>
-    
+
     Checks whether a file is a FLAC audio by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid FLAC audio.
+    Returns a `boolean` indicating whether the file is a valid FLAC audio.
 
     </details>
 
     <details><summary>fileTypeChecker.isM4A(file)</summary>
-    
+
     Checks whether a file is a M4A audio by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid M4A audio.
+    Returns a `boolean` indicating whether the file is a valid M4A audio.
 
     </details>
 
     <details><summary>fileTypeChecker.isMP3(file)</summary>
-    
+
     Checks whether a file is a MP3 audio by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid MP3 audio.
+    Returns a `boolean` indicating whether the file is a valid MP3 audio.
 
     </details>
 
     <details><summary>fileTypeChecker.isWAV(file)</summary>
-    
+
     Checks whether a file is a WAV audio by inspecting its file signature.
 
-  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  Returns a `boolean` indicating whether the file is a valid WAV audio.
+    Returns a `boolean` indicating whether the file is a valid WAV audio.
 
     </details>
 
