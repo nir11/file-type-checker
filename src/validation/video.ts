@@ -19,20 +19,6 @@ export function isAVI(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 }
 
 /**
- * Determine if file content contains a valid 'blend' file signature
- *
- * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
- *
- * @returns {boolean} True if found a signature of type 'blend' in file content, otherwise false
- */
-export function isBLEND(
-  file: Array<number> | ArrayBuffer | Uint8Array
-): boolean {
-  const fileChunk: Array<number> = getFileChunk(file);
-  return FileTypes.checkByFileType(fileChunk, "blend");
-}
-
-/**
  * Determine if file content contains a valid 'flv' file signature.
  * Since 'flv' and 'm4v' share the same signature - additional check required - check if file content contains a "flv" string in the first few bytes of the file
  *

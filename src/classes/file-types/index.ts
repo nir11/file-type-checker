@@ -50,7 +50,6 @@ export class FileTypes {
 
   // video
   static AVI: FileInfo = VideoTypes.AVI;
-  static BLEND: FileInfo = VideoTypes.BLEND;
   static FLV: FileInfo = VideoTypes.FLV;
   static M4V: FileInfo = VideoTypes.M4V;
   static MKV: FileInfo = VideoTypes.MKV;
@@ -67,6 +66,7 @@ export class FileTypes {
   static ZIP: FileInfo = CompressedTypes.ZIP;
 
   // other
+  static BLEND: FileInfo = OtherTypes.BLEND;
   static ELF: FileInfo = OtherTypes.ELF;
   static INDD: FileInfo = OtherTypes.INDD;
   static PDF: FileInfo = OtherTypes.PDF;

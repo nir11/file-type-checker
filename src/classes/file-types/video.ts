@@ -19,17 +19,6 @@ export class VideoTypes {
     ],
   };
 
-  static BLEND: FileInfo = {
-    extension: "blend",
-    mimeType: "application/x-blender",
-    description: "Blender File Format",
-    signatures: [
-      {
-        sequence: [0x42, 0x4c, 0x45, 0x4e, 0x44, 0x45, 0x52],
-      },
-    ],
-  };
-
   static FLV: FileInfo = {
     extension: "flv",
     mimeType: "video/x-flv",

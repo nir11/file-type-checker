@@ -77,95 +77,23 @@ Using npm:
 
 ## Example Usage
 
-### Node.js:
-
-Detect file by its signature:
+### Quick Overview:
 
 ```js
 import fileTypeChecker from "file-type-checker";
 
-// File content as an array of numbers representing the bytes
-const file = [0, 0, 0, 32, 102, 116, 121, 112, 105, 115, 111, 109, 0, 0, 2, 0, 105, 115, 111, 109, 105, 115, 111, 50, 97, 118, 99, 49, 109, 112, 52, 49, ...]
+// ... Read file as `Array<number>`, `ArrayBuffer`, or `Uint8Array`.
 
-const detectedFIle = fileTypeChecker.detectFile(file);
+fileTypeChecker.validateFileType(file, ["png", "gif", "jpeg]);  // Returns true if the file is an image from the accepted list
+fileTypeChecker.detectFile(file);  // Returns the detected file info
+fileTypeChecker.isPNG(file); // Returns true if the file is a valid PNG image
 
-console.log(detectedFile)  // returns {
-                              "extension": "mp4",
-                              "mimeType": "video/mp4",
-                              "description": "A multimedia container format widely used for storing audio, video, and other data, and is known for its high compression efficiency and compatibility with many devices",
-                              "signature": {
-                                "sequence": ["66","74","79","70","69","73","6f","6d"],
-                                "description" (optional): "ISO Base Media file (MPEG-4) v1",
-                                "offset" (optional): 4
-                              }
-                            }
-```
-
-Validate file signature against a list of file types:
-
-```js
-import fileTypeChecker from "file-type-checker";
-
-// File content as an array of numbers representing the bytes
-const file = [71, 73, 70, 56, 57, 97, 56, 1, 56, 1, 247, 49, 0, 98, 57, 49, 57, 32, 32, 0, 8, 0, 57, 41, 32, 8, 0, 0, 57, 41, 41, 8, ...]
-
-// A list of accepted image file types
-const types = ["jpeg", "png", "gif"];
-
-const isImage = fileTypeChecker.validateFileType(file, types);
-
-console.log(isImage); // Returns true the file is an image from the accepted list
-```
-
-Validate file signature against a single file type:
-
-```js
-import fileTypeChecker from "file-type-checker";
-
-// File content as an array of numbers representing the bytes
-const file = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 5, 4, 0, 0, 10, 218, 8, 6, 0, 0, 0, 84, 226, 16, ...];
-
-const isPNG = fileTypeChecker.isPNG(file);
-
-console.log(isPNG); // Returns true if the file is a valid PNG image
+// ... And many more validator functions for each supported type.
 ```
 
 ### Browser (`React`, `Angular`, `Vanilla JS`, etc.):
 
-Detect file by its signature:
-
-```js
-import fileTypeChecker from "file-type-checker";
-
-// Function to handle file input change
-const handleFileInputChange = (event) => {
-    try {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const detectedFIle = fileTypeChecker.detectFile(
-        reader.result,
-        { chunkSize: 32 }   // if you want to detect only images types - all images signatures exists in the first 32 bytes (optional parameter)
-        );
-
-        console.log(detectedFile)  // returns {
-                                      "extension": "png",
-                                      "mimeType": "image/png",
-                                      "description": "PNG (Portable Network Graphics) is a lossless image compression format that supports a wide range of color depths and transparency and is widely used for high-quality graphics.",
-                                      "signature": {
-                                        "sequence": ["89","50","4e","47","d","a","1a","a"]
-                                      }
-                                    }
-      };
-      reader.readAsArrayBuffer(file); // use the FileReader API to read the file as an ArrayBuffer
-      } catch(err) {
-            console.error("Error: ", err.message);
-    }
-};
-```
-
-Validate file signature against a list if file types:
+Validate file signature against a list if file types (React app example):
 
 ```js
 import fileTypeChecker from "file-type-checker";
@@ -177,20 +105,24 @@ const handleFileInputChange = (event) => {
     const reader = new FileReader();
     const types = ["jpeg", "png", "gif"];
 
+    // When the file is loaded, validate its type
     reader.onload = () => {
-      const isImage = fileTypeChecker.validateFileType(
-        reader.result,
-        types,
-        { chunkSize: 32 } // all images signatures exists in the first 32 bytes (optional parameter)
-      );
+      const isImage = fileTypeChecker.validateFileType(reader.result, types);
       console.log(isImage); // Returns true if the file is an image from the accepted list
     };
 
-    reader.readAsArrayBuffer(file); // use the FileReader API to read the file as an ArrayBuffer
+    // Use the FileReader API to read the file as an ArrayBuffer
+    reader.readAsArrayBuffer(file);
   } catch (err) {
     console.error("Error: ", err.message);
   }
 };
+
+return (
+  <div>
+    <input type="file" onChange={handleFileInputChange} />
+  </div>
+);
 ```
 
 ```js
@@ -203,23 +135,31 @@ const handleFileInputChange = (event) => {
     const reader = new FileReader();
     const types = ["mp4", "avi", "mov"];
 
+    // When the file is loaded, validate its type
     reader.onload = () => {
       const isVideo = fileTypeChecker.validateFileType(
         reader.result,
         types,
-        { excludeSimilarTypes: true } // since we don't want to validate 'm4a' signature as 'mp4' type (optional parameter)
+        { excludeSimilarTypes: true } // (optional parameter) if we don't want to validate 'm4a' signature as 'mp4' type
       );
       console.log(isVideo); // Returns true if the file is a video from the accepted list
     };
 
-    reader.readAsArrayBuffer(file); // use the FileReader API to read the file as an ArrayBuffer
+    // Use the FileReader API to read the file as an ArrayBuffer
+    reader.readAsArrayBuffer(file);
   } catch (err) {
     console.error("Error: ", err.message);
   }
 };
+
+return (
+  <div>
+    <input type="file" onChange={handleFileInputChange} />
+  </div>
+);
 ```
 
-Validate file signature against a single file type:
+Validate file signature against a single file type (React app example):
 
 ```js
 import fileTypeChecker from "file-type-checker";
@@ -230,16 +170,131 @@ const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
 
+    // When the file is loaded, check if its type is PNG
     reader.onload = () => {
       const isPNG = fileTypeChecker.isPNG(reader.result);
       console.log(isPNG); // Returns true if the file is a valid PNG image
     };
 
-    reader.readAsArrayBuffer(file); // use the FileReader API to read the file as an ArrayBuffer
+    // Use the FileReader API to read the file as an ArrayBuffer
+    reader.readAsArrayBuffer(file);
   } catch (err) {
     console.error("Error validating file type: ", err.message);
   }
 };
+
+return (
+  <div>
+    <input type="file" onChange={handleFileInputChange} />
+  </div>
+);
+```
+
+Detect file by its signature (React app example):
+
+```js
+import fileTypeChecker from "file-type-checker";
+
+// Function to handle file input change
+const handleFileInputChange = (event) => {
+  try {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    // When the file is loaded, detect its type
+    reader.onload = () => {
+      const detectedFile = fileTypeChecker.detectFile(reader.result);
+      console.log(detectedFile) >
+        {
+          extension: "png",
+          mimeType: "image/png",
+          description:
+            "PNG (Portable Network Graphics) is a lossless image compression format that supports a wide range of color depths and transparency and is widely used for high-quality graphics.",
+          signature: {
+            sequence: ["89", "50", "4e", "47", "d", "a", "1a", "a"],
+          },
+        };
+    };
+
+    // Use the FileReader API to read the file as an ArrayBuffer
+    reader.readAsArrayBuffer(file);
+  } catch (err) {
+    console.error("Error: ", err.message);
+  }
+};
+
+return (
+  <div>
+    <input type="file" onChange={handleFileInputChange} />
+  </div>
+);
+```
+
+### Node.js:
+
+Validate file signature against a list of file types:
+
+```js
+import fileTypeChecker from "file-type-checker";
+import fs from "fs";
+//const fileTypeChecker = require("file-type-checker"); // legacy way
+//const fs = require("fs"); // legacy way
+
+// Read a file as an ArrayBuffer
+const file = fs.readFileSync("/path/to/my/file.png").buffer;
+
+// A list of accepted image file types
+const types = ["jpeg", "png", "gif"];
+
+const isImage = fileTypeChecker.validateFileType(
+  file,
+  types,
+  { chunkSize: 32 } // (optional parameter) all images signatures exists in the first 32 bytes
+);
+
+console.log(isImage); // Returns true the file is an image from the accepted list
+```
+
+Validate file signature against a single file type:
+
+```js
+import fileTypeChecker from "file-type-checker";
+import fs from "fs";
+//const fileTypeChecker = require("file-type-checker"); // legacy way
+//const fs = require("fs"); // legacy way
+
+// Read a file as an ArrayBuffer
+const file = fs.readFileSync("/path/to/my/file.png").buffer;
+
+const isPNG = fileTypeChecker.isPNG(file);
+
+console.log(isPNG); // Returns true if the file is a valid PNG image
+```
+
+Detect file by its signature:
+
+```js
+import fileTypeChecker from "file-type-checker";
+import fs from "fs";
+//const fileTypeChecker = require("file-type-checker"); // legacy way
+//const fs = require("fs"); // legacy way
+
+// Read a file as an ArrayBuffer
+const file = fs.readFileSync("/path/to/my/file.mp4").buffer;
+
+const detectedFIle = fileTypeChecker.detectFile(file);
+
+console.log(detectedFile)
+>  {
+      "extension": "mp4",
+      "mimeType": "video/mp4",
+      "description": "A multimedia container format widely used for storing audio, video, and other data, and is known for its high compression efficiency and compatibility with many devices",
+      "signature": {
+        "sequence": ["66","74","79","70","69","73","6f","6d"],
+        "description" (optional): "ISO Base Media file (MPEG-4) v1",
+        "offset" (optional): 4
+      }
+  }
 ```
 
 ## API
@@ -247,6 +302,22 @@ const handleFileInputChange = (event) => {
 ### fileTypeChecker.detectFile(file, options?)
 
 Detect the file type of a given file.
+
+```js
+import fileTypeChecker from "file-type-checker";
+
+// ...
+
+const detectedFile = fileTypeChecker.detectFile(file);
+> {
+      "extension": "png",
+      "mimeType": "image/png",
+      "description": "PNG (Portable Network Graphics) is a lossless image compression format that supports a wide range of color depths and transparency and is widely used for high-quality graphics.",
+      "signature": {
+        "sequence": ["89","50","4e","47","d","a","1a","a"]
+      }
+  }
+```
 
 Parameters:
 
@@ -270,6 +341,15 @@ Returns:
 
 ### fileTypeChecker.validateFileType(file, types, options?)
 
+```js
+import fileTypeChecker from "file-type-checker";
+
+// ...
+
+const isImage = fileTypeChecker.validateFileType(file, ["jpeg", "png", "gif"]);
+console.log(isImage); // Returns true the file is an image from the accepted list
+```
+
 Validates the requested file signature against a list of accepted file types.
 
 Parameters:
@@ -286,430 +366,492 @@ Returns a `boolean` indicating whether the file is valid.
 
 All supported files have validator functions that determine if a given file matched the requested type signature.
 
+```js
+import fileTypeChecker from "file-type-checker";
+
+// ...
+
+const is7z = fileTypeChecker.is7z(file); // Returns true if the file is a valid 7z archive
+const isAAC = fileTypeChecker.isAAC(file); // Returns true if the file is a valid AAC audio file
+const isAMR = fileTypeChecker.isAMR(file); // Returns true if the file is a valid AMR audio file
+const isAVI = fileTypeChecker.isAVI(file); // Returns true if the file is a valid AVI video file
+const isBMP = fileTypeChecker.isBMP(file); // Returns true if the file is a valid BMP image
+const isBPG = fileTypeChecker.isBPG(file); // Returns true if the file is a valid BPG image
+const isBLEND = fileTypeChecker.isBLEND(file); // Returns true if the file is a valid Blender 3D file
+const isCR2 = fileTypeChecker.isCR2(file); // Returns true if the file is a valid Canon CR2 raw image
+const isELF = fileTypeChecker.isELF(file); // Returns true if the file is a valid ELF executable file
+const isEXR = fileTypeChecker.isEXR(file); // Returns true if the file is a valid EXR image
+const isFLAC = fileTypeChecker.isFLAC(file); // Returns true if the file is a valid FLAC audio file
+const isFLV = fileTypeChecker.isFLV(file); // Returns true if the file is a valid FLV video file
+const isGIF = fileTypeChecker.isGIF(file); // Returns true if the file is a valid GIF image
+const isICO = fileTypeChecker.isICO(file); // Returns true if the file is a valid ICO image
+const isINDD = fileTypeChecker.isINDD(file); // Returns true if the file is a valid Adobe InDesign document
+const isJPEG = fileTypeChecker.isJPEG(file); // Returns true if the file is a valid JPEG image
+const isLZH = fileTypeChecker.isLZH(file); // Returns true if the file is a valid LZH archive
+const isM4A = fileTypeChecker.isM4A(file); // Returns true if the file is a valid M4A audio file
+const isM4V = fileTypeChecker.isM4V(file); // Returns true if the file is a valid M4V video file
+const isMKV = fileTypeChecker.isMKV(file); // Returns true if the file is a valid MKV video file
+const isMOV = fileTypeChecker.isMOV(file); // Returns true if the file is a valid MOV video file
+const isMP3 = fileTypeChecker.isMP3(file); // Returns true if the file is a valid MP3 audio file
+const isMP4 = fileTypeChecker.isMP4(file); // Returns true if the file is a valid MP4 video file
+const isOGG = fileTypeChecker.isOGG(file); // Returns true if the file is a valid OGG audio file
+const isPDF = fileTypeChecker.isPDF(file); // Returns true if the file is a valid PDF document
+const isPBM = fileTypeChecker.isPBM(file); // Returns true if the file is a valid PBM image
+const isPGM = fileTypeChecker.isPGM(file); // Returns true if the file is a valid PGM image
+const isPNG = fileTypeChecker.isPNG(file); // Returns true if the file is a valid PNG image
+const isPPM = fileTypeChecker.isPPM(file); // Returns true if the file is a valid PPM image
+const isPSD = fileTypeChecker.isPSD(file); // Returns true if the file is a valid PSD image
+const isPS = fileTypeChecker.isPS(file); // Returns true if the file is a valid PostScript file
+const isRAR = fileTypeChecker.isRAR(file); // Returns true if the file is a valid RAR archive
+const isRTF = fileTypeChecker.isRTF(file); // Returns true if the file is a valid RTF document
+const isSQLite = fileTypeChecker.isSQLite(file); // Returns true if the file is a valid SQLite database file
+const isSTL = fileTypeChecker.isSTL(file); // Returns true if the file is a valid STL 3D model file
+const isSWF = fileTypeChecker.isSWF(file); // Returns true if the file is a valid SWF file
+const isTTF = fileTypeChecker.isTTF(file); // Returns true if the file is a valid TrueType font file
+const isWAV = fileTypeChecker.isWAV(file); // Returns true if the file is a valid WAV audio file
+const isWEBM = fileTypeChecker.isWEBM(file); // Returns true if the file is a valid WebM video file
+const isWEBP = fileTypeChecker.isWEBP(file); // Returns true if the file is a valid WebP image file
+const isZIP = fileTypeChecker.isZIP(file); // Returns true if the file is a valid ZIP archive
+```
+
 - ### Image:
 
-  - ### fileTypeChecker.isBMP(file)
-
+    <details><summary>fileTypeChecker.isBMP(file)</summary>
+    
     Checks whether a file is a BMP image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid BMP image.
 
-    Returns a `boolean` indicating whether the file is a valid BMP image.
-
-  - ### fileTypeChecker.isBPG(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isBPG(file)</summary>
+    
     Checks whether a file is a BPG image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid BPG image.
 
-    Returns a `boolean` indicating whether the file is a valid BPG image.
-
-  - ### fileTypeChecker.isCR2(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isCR2(file)</summary>
+    
     Checks whether a file is a CR2 image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid CR2 image.
 
-    Returns a `boolean` indicating whether the file is a valid CR2 image.
-
-  - ### fileTypeChecker.isEXR(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isEXR(file)</summary>
+    
     Checks whether a file is a EXR image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid EXR image.
 
-    Returns a `boolean` indicating whether the file is a valid EXR image.
-
-  - ### fileTypeChecker.isGIF(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isGIF(file)</summary>
+    
     Checks whether a file is a GIF image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid GIF image.
 
-    Returns a `boolean` indicating whether the file is a valid GIF image.
-
-  - ### fileTypeChecker.isICO(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isICO(file)</summary>
+    
     Checks whether a file is an ICO image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid ICO image.
 
-    Returns: a `boolean` - A boolean indicating whether the file is a valid ICO image.
-
-  - ### fileTypeChecker.isJPEG(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isJPEG(file)</summary>
+    
     Checks whether a file is a JPEG image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid JPEG image.
 
-    Returns a `boolean` indicating whether the file is a valid JPEG image.
-
-  - ### fileTypeChecker.isPBM(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isPBM(file)</summary>
+    
     Checks whether a file is a PBM image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PBM image.
 
-    Returns a `boolean` indicating whether the file is a valid PBM image.
-
-  - ### fileTypeChecker.isPGM(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isPGM(file)</summary>
+    
     Checks whether a file is a PGM image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PGM image.
 
-    Returns a `boolean` indicating whether the file is a valid PGM image.
-
-  - ### fileTypeChecker.isPNG(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isPNG(file)</summary>
+    
     Checks whether a file is a PNG image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PNG image.
 
-    Returns a `boolean` indicating whether the file is a valid PNG image.
-
-  - ### fileTypeChecker.isPPM(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isPPM(file)</summary>
+    
     Checks whether a file is a PPM image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PPM image.
 
-    Returns a `boolean` indicating whether the file is a valid PPM image.
-
-  - ### fileTypeChecker.isPSD(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isPSD(file)</summary>
+    
     Checks whether a file is a PSD image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PSD image.
 
-    Returns a `boolean` indicating whether the file is a valid PSD image.
-
-  - ### fileTypeChecker.isTFF(file)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isTFF(file)</summary>
+    
     Checks whether a file is a TFF image by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid TFF image.
 
-    Returns a `boolean` indicating whether the file is a valid TFF image.
+    </details>
 
 - ### Video:
 
-  - ### fileTypeChecker.isAVI(file)
+    <details><summary>fileTypeChecker.isAVI(file)</summary>
+    
+    Checks whether a file is an AVI video by inspecting its file signature.
 
-    Checks whether a file is an AVI video file by inspecting its file signature.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Parameters:
+  Returns a `boolean` indicating whether the file is a valid AVI video.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    </details>
 
-    Returns a `boolean` indicating whether the file is a valid AVI video.
+    <details><summary>fileTypeChecker.isFLV(file)</summary>
+    
+    Checks whether a file is a FLV video by inspecting its file signature.
 
-  - ### fileTypeChecker.isBLEND(file)
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Checks whether a file is a BLEND video file by inspecting its file signature.
+  Returns a `boolean` indicating whether the file is a valid FLV video.
 
-    Parameters:
+    </details>
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    <details><summary>fileTypeChecker.isM4V(file)</summary>
+    
+    Checks whether a file is a M4v video by inspecting its file signature.
 
-    Returns a `boolean` indicating whether the file is a valid BLEND video.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  - ### fileTypeChecker.isFLV(file)
+  Returns a `boolean` indicating whether the file is a valid M4v video.
 
-    Checks whether a file is a FLV video file by inspecting its file signature.
+    </details>
 
-    Parameters:
+    </details>
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    <details><summary>fileTypeChecker.isMKV(file)</summary>
+    
+    Checks whether a file is a MKV video by inspecting its file signature.
 
-    Returns a `boolean` indicating whether the file is a valid FLV video.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  - ### fileTypeChecker.isM4V(file)
+  Returns a `boolean` indicating whether the file is a valid MKV video.
 
-    Checks whether a file is a M4V video file by inspecting its file signature.
+    </details>
 
-    Parameters:
+    <details><summary>fileTypeChecker.isMOV(file)</summary>
+    
+    Checks whether a file is a MOV video by inspecting its file signature.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Returns a `boolean` indicating whether the file is a valid M4v video.
+  Returns a `boolean` indicating whether the file is a valid MOV video.
 
-  - ### fileTypeChecker.isMKV(file)
+    </details>
 
-    Checks whether a file is a MKV video file by inspecting its file signature.
-
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
-
-    Returns a `boolean` indicating whether the file is a valid MKV video.
-
-  - ### fileTypeChecker.isMOV(file)
-
-    Checks whether a file is a MOV video file by inspecting its file signature.
-
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
-
-    Returns a `boolean` indicating whether the file is a valid MOV video.
-
-  - ### fileTypeChecker.isMP4(file, options?)
-
-    Checks whether a file is a MOV video file by inspecting its file signature.
-
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
-    - `options` (optional) : `object` - An object that contains additional actions to perfoem on the file:
-      - `excludeSimilarTypes` (optional) : `boolean` - Specifies whether to ignore signatures of similar file types during validation. When validating a `mp4` file, the `m4v` signature will be ignored. The default value is false.
-
+    <details><summary>fileTypeChecker.isMP4(file, options?)</summary>
+    
+    Checks whether a file is a MP4 video by inspecting its file signature.
+    
     Returns a `boolean` indicating whether the file is a valid MP4 video.
 
-  - ### fileTypeChecker.isOGG(file)
+  Parameters:
 
-    Checks whether a file is an OGG video file by inspecting its file signature.
+  - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  - `options` (optional) : `object` - An object that contains additional actions to perfoem on the file:
 
-    Parameters:
+    - `excludeSimilarTypes` (optional) : `boolean` - Specifies whether to ignore signatures of similar file types during validation. When validating a `mp4` file, the `m4v` signature will be ignored. The default value is false.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    </details>
 
-    Returns a `boolean` indicating whether the file is a valid OGG video.
+    <details><summary>fileTypeChecker.isOGG(file)</summary>
 
-  - ### fileTypeChecker.isSWF(file)
+    Checks whether a file is an OGG video by inspecting its file signature.
 
-    Checks whether a file is a SWF video file by inspecting its file signature.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Parameters:
+  Returns a `boolean` indicating whether the file is a valid OGG video.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    </details>
+    
+    </details>
 
-    Returns a `boolean` indicating whether the file is a valid SWF video.
+    <details><summary>fileTypeChecker.isSWF(file)</summary>
+    
+    Checks whether a file is a SWF video by inspecting its file signature.
 
-  - ### fileTypeChecker.isWEBM(file)
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Checks whether a file is a WEBM video file by inspecting its file signature.
+  Returns a `boolean` indicating whether the file is a valid SWF video.
 
-    Parameters:
+    </details>
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    <details><summary>fileTypeChecker.isWEBM(file)</summary>
+    
+    Checks whether a file is a WEBM video by inspecting its file signature.
 
-    Returns a `boolean` indicating whether the file is a valid WEBM video.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+  Returns a `boolean` indicating whether the file is a valid WEBM video.
+
+    </details>
 
 - ### Audio:
 
-  - ### fileTypeChecker.isAAC(file, options?)
-
-    Checks whether a file is an AAC audio file by inspecting its file signature.
-
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
-    - `options` (optional) : `object` - An object that contains additional actions to perfoem on the file: - `excludeSimilarTypes` (optional) : `boolean` - Specifies whether to ignore signatures of similar file types during validation. When validating a `aac` file, the `m4a` signature will be ignored. The default value is false.
-
+    <details><summary>fileTypeChecker.isAAC(file, options?)</summary>
+    
+    Checks whether a file is an AAC audio by inspecting its file signature.
+    
     Returns a `boolean` indicating whether the file is a valid AAC audio.
 
-    - ### fileTypeChecker.isAMR(file)
+  Parameters:
 
-    Checks whether a file is an AMR audio file by inspecting its file signature.
+  - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  - `options` (optional) : `object` - An object that contains additional actions to perfoem on the file:
 
-    Parameters:
+    - `excludeSimilarTypes` (optional) : `boolean` - Specifies whether to ignore signatures of similar file types during validation. When validating a `aac` file, the `m4a` signature will be ignored. The default value is false.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    </details>
 
-    Returns a `boolean` indicating whether the file is a valid AMR audio.
+    <details><summary>fileTypeChecker.isAMR(file)</summary>
 
-    - ### fileTypeChecker.isFLAC(file)
+    Checks whether a file is an AMR audio by inspecting its file signature.
 
-    Checks whether a file is a FLAC audio file by inspecting its file signature.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Parameters:
+  Returns a `boolean` indicating whether the file is a valid AMR audio.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    </details>
 
-    Returns a `boolean` indicating whether the file is a valid FLAC audio.
+    <details><summary>fileTypeChecker.isFLAC(file)</summary>
+    
+    Checks whether a file is a FLAC audio by inspecting its file signature.
 
-  - ### fileTypeChecker.isM4A(file)
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Checks whether a file is a M4A audio file by inspecting its file signature.
+  Returns a `boolean` indicating whether the file is a valid FLAC audio.
 
-    Parameters:
+    </details>
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    <details><summary>fileTypeChecker.isM4A(file)</summary>
+    
+    Checks whether a file is a M4A audio by inspecting its file signature.
 
-    Returns a `boolean` indicating whether the file is a valid M4A audio.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-  - ### fileTypeChecker.isMP3(file)
+  Returns a `boolean` indicating whether the file is a valid M4A audio.
 
-    Checks whether a file is a MP3 audio file by inspecting its file signature.
+    </details>
 
-    Parameters:
+    <details><summary>fileTypeChecker.isMP3(file)</summary>
+    
+    Checks whether a file is a MP3 audio by inspecting its file signature.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Returns a `boolean` indicating whether the file is a valid MP3 audio.
+  Returns a `boolean` indicating whether the file is a valid MP3 audio.
 
-  - ### fileTypeChecker.isWAV(file)
+    </details>
 
-    Checks whether a file is a WAV audio file by inspecting its file signature.
+    <details><summary>fileTypeChecker.isWAV(file)</summary>
+    
+    Checks whether a file is a WAV audio by inspecting its file signature.
 
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
   Returns a `boolean` indicating whether the file is a valid WAV audio.
 
+    </details>
+
 - ### Compressed:
 
-  - ### fileTypeChecker.is7z(file)
-
+    <details><summary>fileTypeChecker.is7z(file)</summary>
+    
     Checks whether a file is a 7z compressed archive by inspecting its file signature.
 
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
   Returns a `boolean` indicating whether the file is a valid 7z file.
 
-  - ### fileTypeChecker.isLZH(file)
+    </details>
 
+    <details><summary>fileTypeChecker.isLZH(file)</summary>
+    
     Checks whether a file is a LZH compressed archive by inspecting its file signature.
 
-    Parameters:
-
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
   Returns a `boolean` indicating whether the file is a valid LZH file.
 
-  - ### fileTypeChecker.isRAR(file)
+    </details>
 
+    <details><summary>fileTypeChecker.isRAR(file)</summary>
+    
     Checks whether a file is a RAR compressed archive by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid RAR file.
 
-    Returns a `boolean` indicating whether the file is a valid rar file.
-
-  - ### fileTypeChecker.isZIP(file, options?)
-
+    </details>
+    
+    <details><summary>fileTypeChecker.isZIP(file, options?)</summary>
+    
     Checks whether a file is a ZIP compressed archive by inspecting its file signature.
+    
+    Returns a `boolean` indicating whether the file is a valid ZIP file.
 
-    Parameters:
+  Parameters:
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
-    - `options` (optional) : `object` - An object that contains additional actions to perfoem on the file:
-      - `chunkSize` (optional) : `number` - Specifies the size of the file chunk to analyze, starting from the beginning of the file. For ZIP files, it is recommended to set this to 30,000 bytes. The default value is 64.
+  - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  - `options` (optional) : `object` - An object that contains additional actions to perfoem on the file:
 
-    Returns a `boolean` indicating whether the file is a valid zip file.
+    - `chunkSize` (optional) : `number` - Specifies the size of the file chunk to analyze, starting from the beginning of the file. For ZIP files, it is recommended to set this to 30,000 bytes. The default value is 64.
+
+    </details>
 
 - ### Other:
 
-  - ### fileTypeChecker.isELF(file)
+    <details><summary>fileTypeChecker.isBLEND(file)</summary>
+    
+    Checks whether a file is a BLEND file by inspecting its file signature.
 
-    Checks whether a file is a ELF file by inspecting its file signature.
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    Parameters:
+  Returns a `boolean` indicating whether the file is a valid BLEND file.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+    </details>
 
-    Returns a `boolean` indicating whether the file is a valid ELF file.
+    <details><summary>fileTypeChecker.isELF(file)</summary>
+    
+    Checks whether a file is an ELF file by inspecting its file signature.
 
-  - ### fileTypeChecker.isINDD(file)
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
+  Returns a `boolean` indicating whether the file is a valid ELF file.
+
+    </details>
+
+    <details><summary>fileTypeChecker.isINDD(file)</summary>
+    
     Checks whether a file is an INDD file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content..
+  Returns a `boolean` indicating whether the file is an INDD file.
 
-    Returns a `boolean` indicating whether the file is a valid INDD file.
+    </details>
 
-  - ### fileTypeChecker.isPDF(file)
-
+    <details><summary>fileTypeChecker.isPDF(file)</summary>
+    
     Checks whether a file is a PDF file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PDF file.
 
-    Returns a `boolean` indicating whether the file is a valid PDF file.
+    </details>
 
-  - ### fileTypeChecker.isPS(file)
-
+    <details><summary>fileTypeChecker.isPS(file)</summary>
+    
     Checks whether a file is a PS file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid PS file.
 
-    Returns a `boolean` indicating whether the file is a valid PS file.
+    </details>
 
-  - ### fileTypeChecker.isRTF(file)
-
+    <details><summary>fileTypeChecker.isRTF(file)</summary>
+    
     Checks whether a file is a RTF file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid RTF file.
 
-    Returns a `boolean` indicating whether the file is a valid RTF file.
+    </details>
 
-  - ### fileTypeChecker.isSQLITE(file)
-
+    <details><summary>fileTypeChecker.isSQLITE(file)</summary>
+    
     Checks whether a file is a SQLITE file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid SQLITE file.
 
-    Returns a `boolean` indicating whether the file is a valid SQLITE file.
+    </details>
 
-  - ### fileTypeChecker.isSTL(file)
-
+    <details><summary>fileTypeChecker.isSTL(file)</summary>
+    
     Checks whether a file is a STL file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid STL file.
 
-    Returns a `boolean` indicating whether the file is a valid STL file.
+    </details>
 
-  - ### fileTypeChecker.isTTF(file)
-
+    <details><summary>fileTypeChecker.isTTF(file)</summary>
+    
     Checks whether a file is a TTF file by inspecting its file signature.
 
-    Parameters:
+  Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-    - `file`: `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+  Returns a `boolean` indicating whether the file is a valid TTF file.
 
-    Returns a `boolean` indicating whether the file is a valid TTF file.
+    </details>
 
 # License
 

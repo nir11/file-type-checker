@@ -2,6 +2,20 @@ import { FileTypes } from "../classes";
 import { getFileChunk } from "../utils";
 
 /**
+ * Determine if file content contains a valid 'blend' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'blend' in file content, otherwise false
+ */
+export function isBLEND(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "blend");
+}
+
+/**
  * Determine if file content contains a valid 'elf' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array

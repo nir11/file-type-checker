@@ -4,6 +4,17 @@ import { FileInfo } from "../core/file-info";
  * Other files information with their unique signatures
  */
 export class OtherTypes {
+  static BLEND: FileInfo = {
+    extension: "blend",
+    mimeType: "application/x-blender",
+    description: "Blender File Format",
+    signatures: [
+      {
+        sequence: [0x42, 0x4c, 0x45, 0x4e, 0x44, 0x45, 0x52],
+      },
+    ],
+  };
+
   static ELF: FileInfo = {
     extension: "elf",
     mimeType: "application/x-executable",
