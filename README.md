@@ -299,7 +299,7 @@ console.log(detectedFile)
 
 ## API
 
-### fileTypeChecker.detectFile(file, options?)
+### detectFile(file, options?)
 
 Detect the file type of a given file.
 
@@ -339,7 +339,9 @@ Returns:
     - `compatibleExtensions` (optional): An array of strings that indicates file compatible extensions.
 - `undefined` - If no file has found.
 
-### fileTypeChecker.validateFileType(file, types, options?)
+### validateFileType(file, types, options?)
+
+Validates the requested file signature against a list of accepted file types.
 
 ```js
 import fileTypeChecker from "file-type-checker";
@@ -349,8 +351,6 @@ import fileTypeChecker from "file-type-checker";
 const isImage = fileTypeChecker.validateFileType(file, ["jpeg", "png", "gif"]);
 console.log(isImage); // Returns true the file is an image from the accepted list
 ```
-
-Validates the requested file signature against a list of accepted file types.
 
 Parameters:
 
