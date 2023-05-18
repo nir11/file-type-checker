@@ -1,6 +1,6 @@
 {
   "name": "file-type-checker",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Detect and validate file types by their signatures (✨magic numbers✨)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

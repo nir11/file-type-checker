@@ -1,4 +1,4 @@
-import { FileTypes, FileValidatorOptions } from "../classes";
+import { FileTypes, FileValidatorOptions } from "../core";
 import { getFileChunk } from "../utils";
 
 /**

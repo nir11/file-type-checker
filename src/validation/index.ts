@@ -4,7 +4,7 @@ import {
   FileInfo,
   FileTypseRequiredAdditionalCheck,
   ValidateFileTypeOptions,
-} from "../classes";
+} from "../core";
 import { getFileChunk } from "../utils";
 
 export * from "./audio";

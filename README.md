@@ -11,6 +11,34 @@
 - Written in TypeScript for full typing support.
 - Works on both server and client sides.
 
+```js
+import fileTypeChecker from "file-type-checker";
+
+// ... Read file as `Array<number>`, `ArrayBuffer`, or `Uint8Array`.
+
+fileTypeChecker.detectFile(file); // Returns the detected file info
+fileTypeChecker.validateFileType(file, ["png", "gif", "jpeg"]); // Returns true if the file is an image from the accepted list
+fileTypeChecker.isPNG(file); // Returns true if the file is a valid PNG image
+
+// ... And many more validator functions for each supported type.
+```
+
+## Installation
+
+Using npm:
+
+    npm i file-type-checker
+
+## Quick Overview
+
+### Detection sample:
+
+![Detection GIF](https://github.com/nir11/file-type-checker/blob/main/src/assets/detection.gif)
+
+### Validation sample:
+
+![Detection GIF](https://github.com/nir11/file-type-checker/blob/main/src/assets/validation.gif)
+
 ## Resources
 
 - [GCK'S File Signatures Table](https://www.garykessler.net/library/file_sigs.html)
@@ -62,12 +90,6 @@
 | webp   |
 | zip    |
 
-## Installation
-
-Using npm:
-
-    npm i file-type-checker
-
 ## Note
 
 - Only file signatures are checked; additional validation may be necessary.
@@ -76,20 +98,6 @@ Using npm:
 - This package assumes little-endian byte order; adjust code for big-endian.
 
 ## Example Usage
-
-### Quick Overview:
-
-```js
-import fileTypeChecker from "file-type-checker";
-
-// ... Read file as `Array<number>`, `ArrayBuffer`, or `Uint8Array`.
-
-fileTypeChecker.validateFileType(file, ["png", "gif", "jpeg"]); // Returns true if the file is an image from the accepted list
-fileTypeChecker.detectFile(file); // Returns the detected file info
-fileTypeChecker.isPNG(file); // Returns true if the file is a valid PNG image
-
-// ... And many more validator functions for each supported type.
-```
 
 ### Browser (`React`, `Angular`, `Vanilla JS`, etc.):
 

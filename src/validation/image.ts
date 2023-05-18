@@ -1,4 +1,4 @@
-import { FileTypes } from "../classes";
+import { FileTypes } from "../core";
 import { getFileChunk } from "../utils";
 
 /**

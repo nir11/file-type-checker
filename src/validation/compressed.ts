@@ -1,4 +1,4 @@
-import { FileTypes, ZipValidatorOptions } from "../classes";
+import { FileTypes, ZipValidatorOptions } from "../core";
 import { getFileChunk } from "../utils";
 
 /**

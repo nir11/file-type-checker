@@ -1,5 +1,5 @@
 import fileTypeChecker from "../../src/index";
-import { DetectedFileInfo } from "../../src/classes";
+import { DetectedFileInfo } from "../../src/core";
 
 describe("detectFile", () => {
   it("should detect the file type of an Array<number> as a png file", () => {

@@ -1,4 +1,4 @@
-import { FileInfo } from "../classes";
+import { FileInfo } from "../core";
 
 /**
  * Takes a file content in different types, convert it into array of numbers and returns a chunk of the required size

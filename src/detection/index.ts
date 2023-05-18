@@ -4,7 +4,7 @@ import {
   FileInfo,
   FileSignature,
   FileTypes,
-} from "../classes";
+} from "../core";
 import { getFileChunk } from "../utils";
 
 /**
