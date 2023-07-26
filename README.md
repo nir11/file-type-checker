@@ -89,6 +89,7 @@ Using npm:
 | webm   |
 | webp   |
 | zip    |
+| heic   |
 
 ## Note
 
@@ -420,6 +421,7 @@ const isWAV = fileTypeChecker.isWAV(file); // Returns true if the file is a vali
 const isWEBM = fileTypeChecker.isWEBM(file); // Returns true if the file is a valid WebM video file
 const isWEBP = fileTypeChecker.isWEBP(file); // Returns true if the file is a valid WebP image file
 const isZIP = fileTypeChecker.isZIP(file); // Returns true if the file is a valid ZIP archive
+const isHEIC = fileTypeChecker.isHEIC(file); // Returns true if the file is a valid HEIC image
 ```
 
 #### Image:
@@ -551,6 +553,16 @@ Checks whether a file is a TFF image by inspecting its file signature.
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
 Returns a `boolean` indicating whether the file is a valid TFF image.
+
+</details>
+
+<details><summary>fileTypeChecker.isHEIC(file)</summary>
+
+Checks whether a file is a HEIC image by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid HEIC image.
 
 </details>
 

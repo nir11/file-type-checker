@@ -160,3 +160,17 @@ export function isWEBP(
   const fileChunk: Array<number> = getFileChunk(file);
   return FileTypes.checkByFileType(fileChunk, "webp");
 }
+
+/**
+ * Determine if file content contains a valid 'heic' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'heic' in file content, otherwise false
+ */
+export function isHEIC(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "heic");
+}
