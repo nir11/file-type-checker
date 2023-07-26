@@ -52,7 +52,7 @@ export function validateFileType(
   )
     throw new RangeError("chunkSize must be bigger than zero");
 
-  if (!options || !options.excludeSimilarTypes) {
+  if (!options || !options?.excludeSimilarTypes) {
     const similarTypes: Array<string> = addSimilarTypes(typeExtensions);
     if (similarTypes.length > 0)
       typeExtensions = typeExtensions.concat(similarTypes);
