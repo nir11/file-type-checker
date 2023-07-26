@@ -12,11 +12,11 @@ export function getFileChunk(
   file: Array<number> | ArrayBuffer | Uint8Array,
   fileChunkLength: number = 32 // default length - 32 bytes
 ): Array<number> {
-  let fileToCheck: any =
+  const fileToCheck: Array<number> | Uint8Array =
     file instanceof ArrayBuffer ? new Uint8Array(file) : file;
   let chunk: Array<number> = [];
   if (
-    file instanceof Array<number> ||
+    (Array.isArray(file) && isArrayofNumbers(file)) ||
     file instanceof ArrayBuffer ||
     file instanceof Uint8Array
   ) {
@@ -53,6 +53,7 @@ function isLegalChunk(fileChunk: Array<number>): boolean {
  *
  * @returns {FileInfo} A property of the rquired object
  */
+// eslint-disable-next-line
 export function fetchFromObject(obj: any, prop: string): FileInfo {
   const _index = prop.indexOf(".");
   if (_index > -1) {
@@ -140,4 +141,9 @@ export function isFileContaineJfiforExifHeader(file: number[]): boolean {
     return true; // It's a JPEG file
   }
   return false;
+}
+
+// eslint-disable-next-line
+function isArrayofNumbers(arr: any[]): boolean {
+  return arr.every((element) => typeof element === "number");
 }

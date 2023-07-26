@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
+    "lint": "npx eslint .",
     "test": "jest --config jest.config.js"
   },
   "repository": {
@@ -76,6 +77,10 @@
   "devDependencies": {
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
-    "ts-jest": "^29.0.5"
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-jest": "^27.2.3",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.1.6"
   }
 }

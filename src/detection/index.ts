@@ -21,7 +21,7 @@ export function detectFile(
 ): DetectedFileInfo | undefined {
   if (
     options &&
-    options.hasOwnProperty("chunkSize") &&
+    Object.prototype.hasOwnProperty.call(options, "chunkSize") &&
     (options?.chunkSize ?? 0) <= 0
   )
     throw new RangeError("chunkSize must be bigger than zero");
@@ -29,19 +29,19 @@ export function detectFile(
   const fileChunk: Array<number> = getFileChunk(file, options?.chunkSize || 64); // Take chunk from the beginning of the file
   if (fileChunk.length === 0) return undefined;
 
-  let detectedFiles: DetectedFileInfo[] = [];
+  const detectedFiles: DetectedFileInfo[] = [];
 
   for (const type in FileTypes) {
-    if (FileTypes.hasOwnProperty(type)) {
+    if (Object.prototype.hasOwnProperty.call(FileTypes, type)) {
       const signatures: Array<FileSignature> =
         FileTypes.getSignaturesByName(type);
-      let matchedSignature = FileTypes.detectbySignatures(
+      const matchedSignature = FileTypes.detectbySignatures(
         fileChunk,
         signatures
       );
       if (matchedSignature) {
-        let fileType: FileInfo = FileTypes.getInfoByName(type);
-        let fileInfo: DetectedFileInfo = {
+        const fileType: FileInfo = FileTypes.getInfoByName(type);
+        const fileInfo: DetectedFileInfo = {
           extension: fileType.extension,
           mimeType: fileType.mimeType,
           description: fileType.description,
