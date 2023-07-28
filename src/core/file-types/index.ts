@@ -47,6 +47,7 @@ export class FileTypes {
   static PPM: FileInfo = ImageTypes.PPM;
   static PSD: FileInfo = ImageTypes.PSD;
   static WEBP: FileInfo = ImageTypes.WEBP;
+  static HEIC: FileInfo = ImageTypes.HEIC;
 
   // video
   static AVI: FileInfo = VideoTypes.AVI;
