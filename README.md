@@ -61,6 +61,7 @@ Using npm:
 | flac   |
 | flv    |
 | gif    |
+| heic   |
 | ico    |
 | indd   |
 | jpeg   |
@@ -89,7 +90,6 @@ Using npm:
 | webm   |
 | webp   |
 | zip    |
-| heic   |
 
 ## Note
 
