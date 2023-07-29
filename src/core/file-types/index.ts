@@ -13,7 +13,7 @@ import { DetectedFileInfo } from "../interfaces/dto";
 import { isFLV, isM4V, isMKV, isWEBM } from "../../validation";
 import { FileInfo, FileSignature } from "../types";
 
-export const FileTypseRequiredAdditionalCheck: Array<string> = [
+export const FILE_TYPES_REQUIRED_ADDITIONAL_CHECK: Array<string> = [
   "m4v",
   "flv",
   "mp4",
@@ -99,8 +99,11 @@ export class FileTypes {
   public static getSignaturesByName(
     propertyName: string
   ): Array<FileSignature> {
-    const file = fetchFromObject(FileTypes, propertyName.toUpperCase());
-    return file.signatures;
+    const { signatures } = fetchFromObject(
+      FileTypes,
+      propertyName.toUpperCase()
+    );
+    return signatures;
   }
 
   /**
@@ -117,7 +120,7 @@ export class FileTypes {
   ): FileSignature | undefined {
     for (const signature of acceptedSignatures) {
       let found = true;
-      let offset = signature.offset || 0;
+      const offset = signature.offset || 0;
       let skippedBytes = 0;
       for (let i = 0; i < signature.sequence.length; i++) {
         if (signature.skippedBytes && signature.skippedBytes.includes(i)) {
@@ -179,7 +182,7 @@ export class FileTypes {
     for (const signature of acceptedSignatures) {
       let skippedBytes = 0;
       let found = true;
-      let offset = signature.offset || 0;
+      const offset = signature.offset || 0;
       const signatureLength = signature?.skippedBytes
         ? signature.sequence.length + signature.skippedBytes.length
         : signature.sequence.length;
@@ -212,8 +215,8 @@ export class FileTypes {
     fileChunk: Array<number>,
     type: string
   ): boolean {
-    if (FileTypes.hasOwnProperty(type.toUpperCase())) {
-      let acceptedSignatures: Array<FileSignature> =
+    if (Object.prototype.hasOwnProperty.call(FileTypes, type.toUpperCase())) {
+      const acceptedSignatures: Array<FileSignature> =
         FileTypes.getSignaturesByName(type.toUpperCase());
 
       const detectedSignature = FileTypes.detectSignature(

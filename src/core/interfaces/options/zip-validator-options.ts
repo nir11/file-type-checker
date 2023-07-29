@@ -1,6 +1,6 @@
 /**
  * Options used to pass to izZip function.
  */
-export class ZipValidatorOptions {
-  chunkSize?: number = 64;
+export interface ZipValidatorOptions {
+  chunkSize?: number;
 }

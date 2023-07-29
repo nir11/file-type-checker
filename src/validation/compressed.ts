@@ -49,6 +49,6 @@ export function isZIP(
   file: Array<number> | ArrayBuffer | Uint8Array,
   options?: ZipValidatorOptions
 ): boolean {
-  const fileChunk: Array<number> = getFileChunk(file, options?.chunkSize || 32);
+  const fileChunk: Array<number> = getFileChunk(file, options?.chunkSize || 64);
   return FileTypes.checkByFileType(fileChunk, "zip");
 }

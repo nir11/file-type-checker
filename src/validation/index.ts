@@ -2,7 +2,7 @@ import {
   FileSignature,
   FileTypes,
   FileInfo,
-  FileTypseRequiredAdditionalCheck,
+  FILE_TYPES_REQUIRED_ADDITIONAL_CHECK,
   ValidateFileTypeOptions,
 } from "../core";
 import { getFileChunk } from "../utils";
@@ -38,7 +38,7 @@ export function validateFileType(
     ),
   ];
   for (const type of uniqueTypes) {
-    if (!FileTypes.hasOwnProperty(type))
+    if (!Object.prototype.hasOwnProperty.call(FileTypes, type))
       throw new TypeError(
         `Type \`${type.toLowerCase()}\` is not supported. Please make sure that \`types\` list conatins only supported files`
       );
@@ -47,24 +47,24 @@ export function validateFileType(
 
   if (
     options &&
-    options.hasOwnProperty("chunkSize") &&
+    Object.prototype.hasOwnProperty.call(options, "chunkSize") &&
     (options?.chunkSize ?? 0) <= 0
   )
     throw new RangeError("chunkSize must be bigger than zero");
 
-  if (!options || !options.excludeSimilarTypes) {
+  if (!options || !options?.excludeSimilarTypes) {
     const similarTypes: Array<string> = addSimilarTypes(typeExtensions);
     if (similarTypes.length > 0)
       typeExtensions = typeExtensions.concat(similarTypes);
   }
 
   let acceptedSignatures: Array<FileSignature> = [];
-  let filesRequiredAdditionalCheck: Array<FileInfo> = [];
+  const filesRequiredAdditionalCheck: Array<FileInfo> = [];
   for (const type of typeExtensions) {
     const extensionSignatures: Array<FileSignature> =
       FileTypes.getSignaturesByName(type);
     acceptedSignatures = acceptedSignatures.concat(extensionSignatures);
-    if (FileTypseRequiredAdditionalCheck.includes(type.toLowerCase())) {
+    if (FILE_TYPES_REQUIRED_ADDITIONAL_CHECK.includes(type.toLowerCase())) {
       filesRequiredAdditionalCheck.push(FileTypes.getInfoByName(type));
     }
   }
