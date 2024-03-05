@@ -131,7 +131,7 @@ export class OtherTypes {
     description: "Apache ORC (Optimized Row Columnar) file format for columnar storage",
     signatures: [
       {
-        sequence: [0x4f, 0x52, 0x43, 0x01],
+        sequence: [0x4f, 0x52, 0x43],
       },
     ],
   };

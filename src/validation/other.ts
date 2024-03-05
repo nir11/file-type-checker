@@ -136,5 +136,8 @@ export function isPARQUET(file: Array<number> | ArrayBuffer | Uint8Array): boole
  */
 export function isORC(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   const fileChunk: Array<number> = getFileChunk(file);
-  return FileTypes.checkByFileType(fileChunk, "orc");
+  // Extract the last 3 bytes of the file chunk
+  // https://stackoverflow.com/questions/63796983/check-if-a-file-is-an-orc-file
+  const lastBytes = fileChunk.slice(-3);
+  return FileTypes.checkByFileType(lastBytes, "orc");
 }
