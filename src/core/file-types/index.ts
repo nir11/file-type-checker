@@ -76,6 +76,8 @@ export class FileTypes {
   static SQLITE: FileInfo = OtherTypes.SQLITE;
   static STL: FileInfo = OtherTypes.STL;
   static TTF: FileInfo = OtherTypes.TTF;
+  static PARQUET: FileInfo = OtherTypes.PARQUET;
+  static ORC: FileInfo = OtherTypes.ORC;
 
   /**
    * Receive information on a file type by its property name from FileTypes class

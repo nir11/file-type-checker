@@ -7,3 +7,4 @@ const fileTypeChecker = {
 };
 
 export = fileTypeChecker;
+

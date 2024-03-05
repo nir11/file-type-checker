@@ -422,6 +422,8 @@ const isWEBM = fileTypeChecker.isWEBM(file); // Returns true if the file is a va
 const isWEBP = fileTypeChecker.isWEBP(file); // Returns true if the file is a valid WebP image file
 const isZIP = fileTypeChecker.isZIP(file); // Returns true if the file is a valid ZIP archive
 const isHEIC = fileTypeChecker.isHEIC(file); // Returns true if the file is a valid HEIC image
+const isPARQUET = fileTypeChecker.isPARQUET(file); // Returns true if the file is a valid Parquet file
+const isORC = fileTypeChecker.isORC(file); // Returns true if the file is a valid ORC file
 ```
 
 #### Image:
@@ -866,6 +868,26 @@ Checks whether a file is a TTF file by inspecting its file signature.
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
 Returns a `boolean` indicating whether the file is a valid TTF file.
+
+</details>
+
+<details><summary>fileTypeChecker.isPARQUET(file)</summary>
+
+Checks whether a file is a Parquet file by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid Parquet file.
+
+</details>
+
+<details><summary>fileTypeChecker.isORC(file)</summary>
+
+Checks whether a file is a Orc file by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid Orc file.
 
 </details>
 

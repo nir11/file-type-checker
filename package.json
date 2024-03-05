@@ -50,6 +50,8 @@
     "mp3",
     "mp4",
     "ogg",
+    "orc",
+    "parquet",
     "pdf",
     "pbm",
     "pgm",
