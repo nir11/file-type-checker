@@ -1,6 +1,7 @@
 import {
   DetectedFileInfo,
   DetectFileOptions,
+  FILE_TYPES_REQUIRED_ADDITIONAL_CHECK,
   FileInfo,
   FileSignature,
   FileTypes,
@@ -30,17 +31,21 @@ export function detectFile(
   if (fileChunk.length === 0) return undefined;
 
   const detectedFiles: DetectedFileInfo[] = [];
+  const filesRequiredAdditionalCheck: string[] = [];
 
   for (const type in FileTypes) {
     if (Object.prototype.hasOwnProperty.call(FileTypes, type)) {
       const signatures: Array<FileSignature> =
         FileTypes.getSignaturesByName(type);
-      const matchedSignature = FileTypes.detectbySignatures(
+      const matchedSignature = FileTypes.detectbBySignatures(
         fileChunk,
         signatures
       );
       if (matchedSignature) {
         const fileType: FileInfo = FileTypes.getInfoByName(type);
+        if (FILE_TYPES_REQUIRED_ADDITIONAL_CHECK.includes(fileType.extension)) {
+          filesRequiredAdditionalCheck.push(fileType.extension);
+        }
         const fileInfo: DetectedFileInfo = {
           extension: fileType.extension,
           mimeType: fileType.mimeType,
@@ -54,8 +59,10 @@ export function detectFile(
       }
     }
   }
+
   if (detectedFiles.length === 0) return undefined;
-  else if (detectedFiles.length === 1) return detectedFiles[0];
+  if (detectedFiles.length === 1 && filesRequiredAdditionalCheck.length === 0)
+    return detectedFiles[0];
 
   // Some files share the same signature. Additional check required
   const detectedType = FileTypes.detectTypeByAdditionalCheck(

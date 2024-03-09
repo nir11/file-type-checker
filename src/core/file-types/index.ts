@@ -1,8 +1,9 @@
 import {
   fetchFromObject,
   findMatroskaDocTypeElements,
-  isFlvStringInclude,
-  isftypStringInclude,
+  isAvifStringIncluded,
+  isFlvStringIncluded,
+  isftypStringIncluded,
 } from "../../utils";
 import { AudioTypes } from "./audio";
 import { CompressedTypes } from "./compressed";
@@ -19,6 +20,7 @@ export const FILE_TYPES_REQUIRED_ADDITIONAL_CHECK: Array<string> = [
   "mp4",
   "mkv",
   "webm",
+  "avif",
 ];
 
 /**
@@ -34,6 +36,7 @@ export class FileTypes {
   static WAV: FileInfo = AudioTypes.WAV;
 
   // image
+  static AVIF: FileInfo = ImageTypes.AVIF;
   static BMP: FileInfo = ImageTypes.BMP;
   static BPG: FileInfo = ImageTypes.BPG;
   static CR2: FileInfo = ImageTypes.CR2;
@@ -152,9 +155,9 @@ export class FileTypes {
   ): string | undefined {
     const detectedExtensions = detectedFiles.map((df) => df.extension);
     if (detectedExtensions.some((de) => ["m4v", "flv", "mp4"].includes(de))) {
-      const isFlv = isFLV(fileChunk) && isFlvStringInclude(fileChunk);
+      const isFlv = isFLV(fileChunk) && isFlvStringIncluded(fileChunk);
       if (isFlv) return "flv";
-      const isM4v = isM4V(fileChunk) && isftypStringInclude(fileChunk);
+      const isM4v = isM4V(fileChunk) && isftypStringIncluded(fileChunk);
       if (isM4v) return "m4v";
       return "mp4";
     } else if (detectedExtensions.some((de) => ["mkv", "webm"].includes(de))) {
@@ -163,6 +166,9 @@ export class FileTypes {
       else if (matroskaDocTypeElement === "webm" && isWEBM(fileChunk))
         return "webm";
       return undefined;
+    } else if (detectedExtensions.some((de) => ["avif"].includes(de))) {
+      const isAvif = isAvifStringIncluded(fileChunk);
+      if (isAvif) return "avif";
     }
     return undefined;
   }
@@ -175,7 +181,7 @@ export class FileTypes {
    *
    * @returns {FileSignature | undefined } FileSignature if found a valid signature, otherwise undefined
    */
-  public static detectbySignatures(
+  public static detectbBySignatures(
     fileChunk: Array<number>,
     acceptedSignatures: Array<FileSignature>
   ): FileSignature | undefined {
