@@ -164,3 +164,23 @@ export function isAvifStringIncluded(fileChunk: Array<number>): boolean {
 function isArrayofNumbers(arr: any[]): boolean {
   return arr.every((element) => typeof element === "number");
 }
+
+/**
+ * Determine if a file chunk contains a HEIC file box.
+ * HEIC files typically have an 'ftyp' box with specific major brand signatures
+ * such as 'heic', 'hevc', 'mif1', and 'msf1' which can be checked by searching
+ * for these strings in the file chunk.
+ *
+ * @param fileChunk A chunk from the beginning of a file content, represented as an array of numbers.
+ * @returns {boolean} True if found a HEIC signature in the fileChunk, otherwise false.
+ */
+export function isHeicSignatureIncluded(fileChunk: Array<number>): boolean {
+  // Convert the first part of the file chunk to a string to check for signatures
+  const byteString = fileChunk.map((num) => String.fromCharCode(num)).join("");
+
+  // List of possible HEIC 'ftyp' signatures
+  const heicSignatures = ["ftypheic", "ftyphevc", "ftypmif1", "ftypmsf1"];
+
+  // Check if any of the HEIC signatures are included in the byte string
+  return heicSignatures.some((signature) => byteString.includes(signature));
+}

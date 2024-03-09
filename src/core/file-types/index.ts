@@ -11,7 +11,7 @@ import { OtherTypes } from "./other";
 import { ImageTypes } from "./image";
 import { VideoTypes } from "./video";
 import { DetectedFileInfo } from "../interfaces/dto";
-import { isFLV, isM4V, isMKV, isWEBM } from "../../validation";
+import { isFLV, isHEIC, isM4V, isMKV, isWEBM } from "../../validation";
 import { FileInfo, FileSignature } from "../types";
 
 export const FILE_TYPES_REQUIRED_ADDITIONAL_CHECK: Array<string> = [
@@ -156,10 +156,17 @@ export class FileTypes {
     detectedFiles: Array<DetectedFileInfo | FileInfo>
   ): string | undefined {
     const detectedExtensions = detectedFiles.map((df) => df.extension);
-    if (detectedExtensions.some((de) => ["m4v", "flv", "mp4"].includes(de))) {
-      const isFlv = isFLV(fileChunk) && isFlvStringIncluded(fileChunk);
+
+    if (
+      detectedExtensions.some((de) =>
+        ["m4v", "flv", "mp4", "heic"].includes(de)
+      )
+    ) {
+      if (detectedExtensions.includes("heic") && isHEIC(fileChunk))
+        return "heic";
+      const isFlv = isFLV(fileChunk);
       if (isFlv) return "flv";
-      const isM4v = isM4V(fileChunk) && isftypStringIncluded(fileChunk);
+      const isM4v = isM4V(fileChunk);
       if (isM4v) return "m4v";
       return "mp4";
     } else if (detectedExtensions.some((de) => ["mkv", "webm"].includes(de))) {

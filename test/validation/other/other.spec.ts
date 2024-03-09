@@ -11,6 +11,7 @@ describe("validateFileType", () => {
     const isORC: boolean = fileTypeChecker.isORC(fileArrayNumber);
     expect(isORC).toBeTruthy();
   });
+
   it("should detect the type of a given Array<number> to be a parquet file", () => {
     const fileArrayNumber: Array<number> = [
       80, 65, 82, 49, 21, 0, 21, 238, 45, 21, 128, 20, 44, 21, 220, 5, 21, 0,

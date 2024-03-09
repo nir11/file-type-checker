@@ -14,6 +14,7 @@ describe("detectFile", () => {
     expect(detectedFile.mimeType).toBe("application/x-orc");
     expect(detectedFile.signature.sequence).toEqual(["4f", "52", "43"]);
   });
+
   it("should detect the file type of an Array<number> as a parquet file", () => {
     const file: Array<number> = [
       80, 65, 82, 49, 21, 0, 21, 238, 45, 21, 128, 20, 44, 21, 220, 5, 21, 0,
