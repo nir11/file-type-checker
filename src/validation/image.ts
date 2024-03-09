@@ -1,5 +1,11 @@
 import { FileTypes } from "../core";
-import { getFileChunk, isAvifStringIncluded } from "../utils";
+import {
+  getFileChunk,
+  isAvifStringIncluded,
+  isHeicSignatureIncluded,
+  isftypStringIncluded,
+} from "../utils";
+import { isM4V } from "./video";
 
 /**
  * Determine if file content contains a valid 'avif' file signature
@@ -77,6 +83,24 @@ export function isEXR(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 export function isGIF(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   const fileChunk: Array<number> = getFileChunk(file);
   return FileTypes.checkByFileType(fileChunk, "gif");
+}
+
+/**
+ * Determine if file content contains a valid 'heic' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'heic' in file content, otherwise false
+ */
+export function isHEIC(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  const isHEIC = FileTypes.checkByFileType(fileChunk, "avif");
+  if (!isHEIC) return false;
+
+  // Determine if a file chunk contains a HEIC file box
+  return isHeicSignatureIncluded(fileChunk);
 }
 
 /**
@@ -177,18 +201,4 @@ export function isWEBP(
 ): boolean {
   const fileChunk: Array<number> = getFileChunk(file);
   return FileTypes.checkByFileType(fileChunk, "webp");
-}
-
-/**
- * Determine if file content contains a valid 'heic' file signature
- *
- * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
- *
- * @returns {boolean} True if found a signature of type 'heic' in file content, otherwise false
- */
-export function isHEIC(
-  file: Array<number> | ArrayBuffer | Uint8Array
-): boolean {
-  const fileChunk: Array<number> = getFileChunk(file);
-  return FileTypes.checkByFileType(fileChunk, "heic");
 }

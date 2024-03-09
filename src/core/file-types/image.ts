@@ -74,6 +74,23 @@ export class ImageTypes {
     ],
   };
 
+  static HEIC: FileInfo = {
+    extension: "heic",
+    mimeType: "image/heic",
+    description:
+      "A variant of the HEIF (High Efficiency Image Format) that store images on the latest Apple devices.",
+    signatures: [
+      {
+        sequence: [0x66, 0x74, 0x79, 0x70, 0x68, 0x65, 0x69, 0x63],
+        offset: 4,
+      },
+      {
+        sequence: [0x66, 0x74, 0x79, 0x70, 0x6d],
+        offset: 4,
+      },
+    ],
+  };
+
   static ICO: FileInfo = {
     extension: "ico",
     mimeType: "image/x-icon",
@@ -221,23 +238,6 @@ export class ImageTypes {
       {
         sequence: [0x52, 0x49, 0x46, 0x46, 0x57, 0x45, 0x42, 0x50],
         skippedBytes: [4, 5, 6, 7],
-      },
-    ],
-  };
-
-  static HEIC: FileInfo = {
-    extension: "heic",
-    mimeType: "image/heic",
-    description:
-      "A variant of the HEIF (High Efficiency Image Format) that store images on the latest Apple devices.",
-    signatures: [
-      {
-        sequence: [0x66, 0x74, 0x79, 0x70, 0x68, 0x65, 0x69, 0x63],
-        offset: 4,
-      },
-      {
-        sequence: [0x66, 0x74, 0x79, 0x70, 0x6d],
-        offset: 4,
       },
     ],
   };
