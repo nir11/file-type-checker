@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "lint": "yarn eslint .",
     "test": "jest --config jest.config.js"
   },

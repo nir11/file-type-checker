@@ -4,6 +4,17 @@ import { FileInfo } from "../types/file-info";
  * Image files information with their unique signatures
  */
 export class ImageTypes {
+  static AVIF: FileInfo = {
+    extension: "avif",
+    mimeType: "image/avif",
+    description: "Alliance for Open Media (AOMedia) Video 1 (AV1) Image File",
+    signatures: [
+      {
+        sequence: [0x00, 0x00, 0x00],
+      },
+    ],
+  };
+
   static BMP: FileInfo = {
     extension: "bmp",
     mimeType: "image/bmp",

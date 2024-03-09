@@ -1,5 +1,23 @@
 import { FileTypes } from "../core";
-import { getFileChunk } from "../utils";
+import { getFileChunk, isAvifStringIncluded } from "../utils";
+
+/**
+ * Determine if file content contains a valid 'avif' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'avif' in file content, otherwise false
+ */
+export function isAVIF(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  const isAVIF = FileTypes.checkByFileType(fileChunk, "avif");
+  if (!isAVIF) return false;
+
+  // Search for the presence of the "ftypavif" at bytes 5-12
+  return isAvifStringIncluded(fileChunk);
+}
 
 /**
  * Determine if file content contains a valid 'bmp' file signature

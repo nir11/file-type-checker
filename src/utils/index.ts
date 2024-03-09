@@ -98,7 +98,7 @@ export function findMatroskaDocTypeElements(
  *
  * @returns {boolean} True if found the "ftyp" string in the fileChunk, otherwise false
  */
-export function isftypStringInclude(fileChunk: Array<number>): boolean {
+export function isftypStringIncluded(fileChunk: Array<number>): boolean {
   const ftypSignature = [0x66, 0x74, 0x79, 0x70]; // "ftyp" signature
 
   // Check the first few bytes for the "ftyp" signature
@@ -125,7 +125,7 @@ export function isftypStringInclude(fileChunk: Array<number>): boolean {
  *
  * @returns {boolean} True if found the "FLV" string in the fileChunk, otherwise false
  */
-export function isFlvStringInclude(fileChunk: Array<number>): boolean {
+export function isFlvStringIncluded(fileChunk: Array<number>): boolean {
   const signature = fileChunk.slice(0, 3);
   const signatureString = new TextDecoder().decode(new Uint8Array(signature));
   return signatureString.includes("FLV");
@@ -141,6 +141,23 @@ export function isFileContaineJfiforExifHeader(file: number[]): boolean {
     return true; // It's a JPEG file
   }
   return false;
+}
+
+/**
+ * Determine if array of numbers contains the "ftypavif" string.
+ * AVIF files typically have a "ftypavif" string at bytes 5-12 of the file, which can be checked using TextDecoder or similar.
+ *
+ * @param fileChunk A chunk from the beginning of a file content, represents in array of numbers
+ *
+ * @returns {boolean} True if found the "AVIF" string in the fileChunk, otherwise false
+ */
+export function isAvifStringIncluded(fileChunk: Array<number>): boolean {
+  // Convert the relevant slice of the file chunk from hexadecimal to characters
+  const signature = fileChunk
+    .slice(4, 12)
+    .map((hex) => String.fromCharCode(parseInt(hex.toString(), 16)))
+    .join("");
+  return signature === "ftypavif";
 }
 
 // eslint-disable-next-line

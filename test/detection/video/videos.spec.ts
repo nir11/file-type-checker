@@ -1,4 +1,4 @@
-import FileTypeChecker from "../../../src/index";
+import fileTypeChecker from "../../../src/index";
 
 import { DetectedFileInfo } from "../../../src/core";
 
@@ -10,7 +10,7 @@ describe("detectFile", () => {
       183, 109, 111, 111, 118, 0, 0, 0, 108, 109, 118, 104, 100, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 232,
     ];
-    const detectedFile = FileTypeChecker.detectFile(file) as DetectedFileInfo;
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
     expect(detectedFile.extension).toBe("mp4");
     expect(detectedFile.mimeType).toBe("video/mp4");
     expect(detectedFile.signature.sequence).toEqual([
@@ -30,7 +30,7 @@ describe("detectFile", () => {
       0, 0, 0, 28, 102, 116, 121, 112, 77, 52, 86, 32, 0, 0, 2, 0, 105, 115,
       111, 109, 105, 115, 111, 50, 97, 118, 99, 49, 0, 0, 0, 8,
     ];
-    const detectedFile = FileTypeChecker.detectFile(file) as DetectedFileInfo;
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
     expect(detectedFile.extension).toBe("m4v");
     expect(detectedFile.mimeType).toBe("video/x-m4v");
     expect(detectedFile.signature.sequence).toEqual([

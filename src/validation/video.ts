@@ -1,8 +1,8 @@
 import { FileTypes, FileValidatorOptions } from "../core";
 import {
   findMatroskaDocTypeElements,
-  isFlvStringInclude,
-  isftypStringInclude,
+  isFlvStringIncluded,
+  isftypStringIncluded,
   getFileChunk,
 } from "../utils";
 
@@ -32,7 +32,7 @@ export function isFLV(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   if (!isFlvSignature) return false;
 
   // Check if file content contains a "flv" string
-  return isFlvStringInclude(fileChunk);
+  return isFlvStringIncluded(fileChunk);
 }
 
 /**
@@ -49,7 +49,7 @@ export function isM4V(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   if (!isM4vSignature) return false;
 
   // Check if file content contains a "ftyp" string
-  return isftypStringInclude(fileChunk);
+  return isftypStringIncluded(fileChunk);
 }
 
 /**
