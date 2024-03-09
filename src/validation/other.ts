@@ -42,6 +42,32 @@ export function isINDD(
 }
 
 /**
+ * Determine if file content contains a valid 'orc' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'orc' in file content, otherwise false
+ */
+export function isORC(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "orc");
+}
+
+/**
+ * Determine if file content contains a valid 'parquet' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'parquet' in file content, otherwise false
+ */
+export function isPARQUET(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "parquet");
+}
+
+/**
  * Determine if file content contains a valid 'pdf' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array

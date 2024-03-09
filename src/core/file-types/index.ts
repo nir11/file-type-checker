@@ -73,6 +73,8 @@ export class FileTypes {
   static BLEND: FileInfo = OtherTypes.BLEND;
   static ELF: FileInfo = OtherTypes.ELF;
   static INDD: FileInfo = OtherTypes.INDD;
+  static ORC: FileInfo = OtherTypes.ORC;
+  static PARQUET: FileInfo = OtherTypes.PARQUET;
   static PDF: FileInfo = OtherTypes.PDF;
   static PS: FileInfo = OtherTypes.PS;
   static RTF: FileInfo = OtherTypes.RTF;

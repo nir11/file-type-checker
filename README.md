@@ -393,6 +393,7 @@ const isEXR = fileTypeChecker.isEXR(file); // Returns true if the file is a vali
 const isFLAC = fileTypeChecker.isFLAC(file); // Returns true if the file is a valid FLAC audio file
 const isFLV = fileTypeChecker.isFLV(file); // Returns true if the file is a valid FLV video file
 const isGIF = fileTypeChecker.isGIF(file); // Returns true if the file is a valid GIF image
+const isHEIC = fileTypeChecker.isHEIC(file); // Returns true if the file is a valid HEIC image
 const isICO = fileTypeChecker.isICO(file); // Returns true if the file is a valid ICO image
 const isINDD = fileTypeChecker.isINDD(file); // Returns true if the file is a valid Adobe InDesign document
 const isJPEG = fileTypeChecker.isJPEG(file); // Returns true if the file is a valid JPEG image
@@ -404,6 +405,8 @@ const isMOV = fileTypeChecker.isMOV(file); // Returns true if the file is a vali
 const isMP3 = fileTypeChecker.isMP3(file); // Returns true if the file is a valid MP3 audio file
 const isMP4 = fileTypeChecker.isMP4(file); // Returns true if the file is a valid MP4 video file
 const isOGG = fileTypeChecker.isOGG(file); // Returns true if the file is a valid OGG audio file
+const isORC = fileTypeChecker.isORC(file); // Returns true if the file is a valid ORC file
+const isPARQUET = fileTypeChecker.isPARQUET(file); // Returns true if the file is a valid Parquet file
 const isPDF = fileTypeChecker.isPDF(file); // Returns true if the file is a valid PDF document
 const isPBM = fileTypeChecker.isPBM(file); // Returns true if the file is a valid PBM image
 const isPGM = fileTypeChecker.isPGM(file); // Returns true if the file is a valid PGM image
@@ -421,7 +424,6 @@ const isWAV = fileTypeChecker.isWAV(file); // Returns true if the file is a vali
 const isWEBM = fileTypeChecker.isWEBM(file); // Returns true if the file is a valid WebM video file
 const isWEBP = fileTypeChecker.isWEBP(file); // Returns true if the file is a valid WebP image file
 const isZIP = fileTypeChecker.isZIP(file); // Returns true if the file is a valid ZIP archive
-const isHEIC = fileTypeChecker.isHEIC(file); // Returns true if the file is a valid HEIC image
 ```
 
 #### Image:
@@ -473,6 +475,16 @@ Checks whether a file is a GIF image by inspecting its file signature.
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
 Returns a `boolean` indicating whether the file is a valid GIF image.
+
+</details>
+
+<details><summary>fileTypeChecker.isHEIC(file)</summary>
+
+Checks whether a file is a HEIC image by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid HEIC image.
 
 </details>
 
@@ -553,16 +565,6 @@ Checks whether a file is a TTF image by inspecting its file signature.
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
 Returns a `boolean` indicating whether the file is a valid TTF image.
-
-</details>
-
-<details><summary>fileTypeChecker.isHEIC(file)</summary>
-
-Checks whether a file is a HEIC image by inspecting its file signature.
-
-Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
-
-Returns a `boolean` indicating whether the file is a valid HEIC image.
 
 </details>
 
@@ -806,6 +808,26 @@ Checks whether a file is an INDD file by inspecting its file signature.
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
 Returns a `boolean` indicating whether the file is an INDD file.
+
+</details>
+
+<details><summary>fileTypeChecker.isORC(file)</summary>
+
+Checks whether a file is a ORC file by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid ORC file.
+
+</details>
+
+<details><summary>fileTypeChecker.isPARQUET(file)</summary>
+
+Checks whether a file is a PARQUET file by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid PARQUET file.
 
 </details>
 
