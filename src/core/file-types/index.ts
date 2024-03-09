@@ -70,14 +70,14 @@ export class FileTypes {
   static BLEND: FileInfo = OtherTypes.BLEND;
   static ELF: FileInfo = OtherTypes.ELF;
   static INDD: FileInfo = OtherTypes.INDD;
+  static ORC: FileInfo = OtherTypes.ORC;
+  static PARQUET: FileInfo = OtherTypes.PARQUET;
   static PDF: FileInfo = OtherTypes.PDF;
   static PS: FileInfo = OtherTypes.PS;
   static RTF: FileInfo = OtherTypes.RTF;
   static SQLITE: FileInfo = OtherTypes.SQLITE;
   static STL: FileInfo = OtherTypes.STL;
   static TTF: FileInfo = OtherTypes.TTF;
-  static PARQUET: FileInfo = OtherTypes.PARQUET;
-  static ORC: FileInfo = OtherTypes.ORC;
 
   /**
    * Receive information on a file type by its property name from FileTypes class

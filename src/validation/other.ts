@@ -42,6 +42,32 @@ export function isINDD(
 }
 
 /**
+ * Determine if file content contains a valid 'orc' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'orc' in file content, otherwise false
+ */
+export function isORC(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "orc");
+}
+
+/**
+ * Determine if file content contains a valid 'parquet' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'parquet' in file content, otherwise false
+ */
+export function isPARQUET(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "parquet");
+}
+
+/**
  * Determine if file content contains a valid 'pdf' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
@@ -113,31 +139,4 @@ export function isSTL(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 export function isTTF(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   const fileChunk: Array<number> = getFileChunk(file);
   return FileTypes.checkByFileType(fileChunk, "ttf");
-}
-
-/**
- * Determine if file content contains a valid 'parquet' file signature
- *
- * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
- *
- * @returns {boolean} True if found a signature of type 'parquet' in file content, otherwise false
- */
-export function isPARQUET(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
-  const fileChunk: Array<number> = getFileChunk(file);
-  return FileTypes.checkByFileType(fileChunk, "parquet");
-}
-
-/**
- * Determine if file content contains a valid 'orc' file signature
- *
- * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
- *
- * @returns {boolean} True if found a signature of type 'orc' in file content, otherwise false
- */
-export function isORC(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
-  const fileChunk: Array<number> = getFileChunk(file);
-  // Extract the last 3 bytes of the file chunk
-  // https://stackoverflow.com/questions/63796983/check-if-a-file-is-an-orc-file
-  const lastBytes = fileChunk.slice(-3);
-  return FileTypes.checkByFileType(lastBytes, "orc");
 }

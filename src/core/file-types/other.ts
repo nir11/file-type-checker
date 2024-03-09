@@ -52,6 +52,29 @@ export class OtherTypes {
     ],
   };
 
+  static ORC: FileInfo = {
+    extension: "orc",
+    mimeType: "application/x-orc",
+    description:
+      "Apache ORC (Optimized Row Columnar) file format for columnar storage",
+    signatures: [
+      {
+        sequence: [0x4f, 0x52, 0x43],
+      },
+    ],
+  };
+
+  static PARQUET: FileInfo = {
+    extension: "parquet",
+    mimeType: "application/vnd.apache.parquet",
+    description: "Apache Parquet file format for columnar storage",
+    signatures: [
+      {
+        sequence: [0x50, 0x41, 0x52, 0x31],
+      },
+    ],
+  };
+
   static PS: FileInfo = {
     extension: "ps",
     mimeType: "application/postscript",
@@ -113,27 +136,4 @@ export class OtherTypes {
       },
     ],
   };
-
-  static PARQUET: FileInfo = {
-    extension: "parquet",
-    mimeType: "application/vnd.apache.parquet",
-    description: "Apache Parquet file format for columnar storage",
-    signatures: [
-      {
-        sequence: [0x50, 0x41, 0x52, 0x31],
-      },
-    ],
-  };
-
-  static ORC: FileInfo = {
-    extension: "orc",
-    mimeType: "application/x-orc",
-    description: "Apache ORC (Optimized Row Columnar) file format for columnar storage",
-    signatures: [
-      {
-        sequence: [0x4f, 0x52, 0x43],
-      },
-    ],
-  };
-
 }
