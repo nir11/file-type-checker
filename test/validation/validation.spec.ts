@@ -297,3 +297,29 @@ describe("validateFileType", () => {
     expect(detectedFile).toBeFalsy();
   });
 });
+
+it("should return false when validating an m4v file signature that shares the same signature as a heic file, with only 'heic' as the accepted type", () => {
+  const fileArrayNumber: Array<number> = [
+    0, 0, 0, 0, 0x66, 0x74, 0x79, 0x70, 0x6d, 0x70, 0x34, 0x32, 0, 0, 0, 32,
+    102, 116, 121, 112, 77, 52, 86, 72, 0, 0, 0, 1, 77, 52, 86, 72, 77, 52, 65,
+    32, 109, 112, 52, 50, 105, 115, 111, 109,
+  ];
+
+  const isM4v: boolean = fileTypeChecker.validateFileType(fileArrayNumber, [
+    "heic",
+  ]);
+  expect(isM4v).toBeFalsy();
+});
+
+it("should return true when validating an m4v file signature with 'm4v' as the accepted type", () => {
+  const fileArrayNumber: Array<number> = [
+    0, 0, 0, 0, 0x66, 0x74, 0x79, 0x70, 0x6d, 0x70, 0x34, 0x32, 0, 0, 0, 32,
+    102, 116, 121, 112, 77, 52, 86, 72, 0, 0, 0, 1, 77, 52, 86, 72, 77, 52, 65,
+    32, 109, 112, 52, 50, 105, 115, 111, 109,
+  ];
+
+  const isM4v: boolean = fileTypeChecker.validateFileType(fileArrayNumber, [
+    "m4v",
+  ]);
+  expect(isM4v).toBeTruthy();
+});
