@@ -21,6 +21,7 @@ export const FILE_TYPES_REQUIRED_ADDITIONAL_CHECK: Array<string> = [
   "mkv",
   "webm",
   "avif",
+  "heic",
 ];
 
 /**
@@ -166,7 +167,7 @@ export class FileTypes {
         return "heic";
       const isFlv = isFLV(fileChunk);
       if (isFlv) return "flv";
-      const isM4v = isM4V(fileChunk);
+      const isM4v = isM4V(fileChunk) && !isHEIC(fileChunk);
       if (isM4v) return "m4v";
       return "mp4";
     } else if (detectedExtensions.some((de) => ["mkv", "webm"].includes(de))) {
