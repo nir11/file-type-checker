@@ -15,6 +15,33 @@ export class OtherTypes {
     ],
   };
 
+  static DOC: FileInfo = {
+    extension: "doc",
+    mimeType: "application/msword",
+    description: "Old Microsoft Word documents",
+    signatures: [
+      {
+        sequence: [0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1], // Word 97-2003 for OLECF
+        compatibleExtensions: [
+          "xls",
+          "ppt",
+          "msi",
+          "msg",
+          "dot",
+          "pps",
+          "xla",
+          "wiz",
+        ],
+        description:
+          "An Object Linking and Embedding (OLE) Compound File (CF) (i.e., OLECF) file format, known as Compound Binary File format by Microsoft, used by Microsoft Office 97-2003 applications",
+      },
+      {
+        sequence: [0xdb, 0xa5, 0x2d, 0x00],
+        description: "Microsoft Word 2.0 file format",
+      },
+    ],
+  };
+
   static ELF: FileInfo = {
     extension: "elf",
     mimeType: "application/x-executable",

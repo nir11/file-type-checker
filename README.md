@@ -56,6 +56,7 @@ Using npm:
 | bpg    |
 | blend  |
 | cr2    |
+| doc    |
 | elf    |
 | exr    |
 | flac   |
@@ -388,6 +389,7 @@ const isBMP = fileTypeChecker.isBMP(file); // Returns true if the file is a vali
 const isBPG = fileTypeChecker.isBPG(file); // Returns true if the file is a valid BPG image
 const isBLEND = fileTypeChecker.isBLEND(file); // Returns true if the file is a valid Blender 3D file
 const isCR2 = fileTypeChecker.isCR2(file); // Returns true if the file is a valid Canon CR2 raw image
+const isDOC = fileTypeChecker.isDOC(file); // Returns true if the file is a valid DOC file
 const isELF = fileTypeChecker.isELF(file); // Returns true if the file is a valid ELF executable file
 const isEXR = fileTypeChecker.isEXR(file); // Returns true if the file is a valid EXR image
 const isFLAC = fileTypeChecker.isFLAC(file); // Returns true if the file is a valid FLAC audio file
@@ -788,6 +790,16 @@ Checks whether a file is a BLEND file by inspecting its file signature.
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
 Returns a `boolean` indicating whether the file is a valid BLEND file.
+
+</details>
+
+<details><summary>fileTypeChecker.isDOC(file)</summary>
+
+Checks whether a file is a DOC file by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file is a valid DOC file.
 
 </details>
 
