@@ -155,7 +155,7 @@ export function isAvifStringIncluded(fileChunk: Array<number>): boolean {
   // Convert the relevant slice of the file chunk from hexadecimal to characters
   const signature = fileChunk
     .slice(4, 12)
-    .map((hex) => String.fromCharCode(parseInt(hex.toString(), 16)))
+    .map((hex) => String.fromCharCode(hex))
     .join("");
   return signature === "ftypavif";
 }

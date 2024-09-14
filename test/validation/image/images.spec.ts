@@ -21,7 +21,7 @@ describe("image validation", () => {
 
   it("should detect the type of a given Array<number> to be a avif file", () => {
     const fileArrayNumber: Array<number> = [
-      0, 0, 0, 20, 66, 74, 79, 70, 61, 76, 69, 66, 0, 0,
+      0, 0, 0, 20, 102, 116, 121, 112, 97, 118, 105, 102, 0, 0,
     ];
     const detectedFile = fileTypeChecker.isAVIF(fileArrayNumber);
     expect(detectedFile).toBeTruthy();
