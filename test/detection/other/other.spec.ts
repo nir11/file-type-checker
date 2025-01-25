@@ -25,4 +25,24 @@ describe("detectFile", () => {
     expect(detectedFile.mimeType).toBe("application/vnd.apache.parquet");
     expect(detectedFile.signature.sequence).toEqual(["50", "41", "52", "31"]);
   });
+
+  it("should detect the file type of an Array<number> as a doc file", () => {
+    const file: Array<number> = [
+      208, 207, 17, 224, 161, 177, 26, 225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 59, 0, 3, 0, 254, 255, 9, 0,
+    ];
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
+    expect(detectedFile.extension).toBe("doc");
+    expect(detectedFile.mimeType).toBe("application/msword");
+    expect(detectedFile.signature.sequence).toEqual([
+      "d0",
+      "cf",
+      "11",
+      "e0",
+      "a1",
+      "b1",
+      "1a",
+      "e1",
+    ]);
+  });
 });
