@@ -146,7 +146,7 @@ export function isTTF(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
  *
- * @returns {boolean} True if found a signature of type 'doc' in file content, otherwise false
+ * @returns {boolean} True if found a signature of type 'ttf' in file content, otherwise false
  */
 export function isDOC(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   const fileChunk: Array<number> = getFileChunk(file);
