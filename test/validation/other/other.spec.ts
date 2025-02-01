@@ -29,4 +29,13 @@ describe("validateFileType", () => {
     const isDOC: boolean = fileTypeChecker.isDOC(fileArrayNumber);
     expect(isDOC).toBeTruthy();
   });
+
+  it("should return true when given an Array<number> of a pcap file and using the isPCAP() function", () => {
+    const fileArrayNumber: Array<number> = [
+      212, 195, 178, 161, 2, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1,
+      0, 0, 0, 72, 244, 159, 69, 105, 94, 3, 0,
+    ];
+    const isPCAP: boolean = fileTypeChecker.isPCAP(fileArrayNumber);
+    expect(isPCAP).toBeTruthy();
+  });
 });

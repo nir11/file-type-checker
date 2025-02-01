@@ -45,4 +45,15 @@ describe("detectFile", () => {
       "e1",
     ]);
   });
+
+  it("should detect the file type of an Array<number> as a pcap file", () => {
+    const file: Array<number> = [
+      212, 195, 178, 161, 2, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 1,
+      0, 0, 0, 72, 244, 159, 69, 105, 94, 3, 0,
+    ];
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
+    expect(detectedFile.extension).toBe("pcap");
+    expect(detectedFile.mimeType).toBe("application/vnd.tcpdump.pcap");
+    expect(detectedFile.signature.sequence).toEqual(["d4", "c3", "b2", "a1"]);
+  });
 });
