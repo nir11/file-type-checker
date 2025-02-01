@@ -163,4 +163,19 @@ export class OtherTypes {
       },
     ],
   };
+
+  static PCAP: FileInfo = {
+    extension: "pcap",
+    mimeType: "application/vnd.tcpdump.pcap",
+    description: "Libpcap File Format",
+    signatures: [
+      {
+        sequence: [0xd4, 0xc3, 0xb2, 0xa1],
+      },
+      {
+        sequence: [0x4d, 0x3c, 0xb2, 0xa1],
+        description: "Nanosecond resolution",
+      },
+    ],
+  };
 }
