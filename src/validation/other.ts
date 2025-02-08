@@ -40,6 +40,20 @@ export function isEXE(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 }
 
 /**
+ * Determine if file content contains a valid 'mach-o' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'mach-o' in file content, otherwise false
+ */
+export function isMACHO(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "macho");
+}
+
+/**
  * Determine if file content contains a valid 'indd' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array

@@ -67,4 +67,15 @@ describe("detectFile", () => {
     expect(detectedFile.mimeType).toBe("application/x-msdownload");
     expect(detectedFile.signature.sequence).toEqual(["4d", "5a"]);
   });
+
+  it("should detect the file type of an Array<number> as an mach-o file", () => {
+    const file: Array<number> = [
+      207, 250, 237, 254, 7, 0, 0, 1, 3, 0, 0, 128, 2, 0, 0, 0, 16, 0, 0, 0,
+      216, 7, 0, 0, 133, 0, 32, 0, 0, 0, 0, 0,
+    ];
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
+    expect(detectedFile.extension).toBe("macho");
+    expect(detectedFile.mimeType).toBe("application/x-mach-binary");
+    expect(detectedFile.signature.sequence).toEqual(["cf", "fa", "ed", "fe"]);
+  });
 });

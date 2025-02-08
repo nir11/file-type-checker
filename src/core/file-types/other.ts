@@ -107,6 +107,36 @@ export class OtherTypes {
     ],
   };
 
+  static MACHO: FileInfo = {
+    extension: "macho",
+    mimeType: "application/x-mach-binary",
+    description: "Apple OS X ABI Mach-O binary file",
+    signatures: [
+      {
+        sequence: [0xfe, 0xed, 0xfa, 0xce],
+        description: "32-bit",
+      },
+      {
+        sequence: [0xce, 0xfa, 0xed, 0xfe],
+        description:
+          "32-bit, where target system has reverse byte ordering from host running compiler",
+      },
+      {
+        sequence: [0xfe, 0xed, 0xfa, 0xcf],
+        description: "64-bit",
+      },
+      {
+        sequence: [0xcf, 0xfa, 0xed, 0xfe],
+        description:
+          "64-bit, where target system has reverse byte ordering from host running compiler",
+      },
+      {
+        sequence: [0xca, 0xfe, 0xba, 0xbe],
+        description: "Mach-O Fat Binary",
+      },
+    ],
+  };
+
   static PDF: FileInfo = {
     extension: "pdf",
     mimeType: "application/pdf",
