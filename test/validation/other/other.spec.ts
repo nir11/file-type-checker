@@ -38,4 +38,13 @@ describe("validateFileType", () => {
     const isPCAP: boolean = fileTypeChecker.isPCAP(fileArrayNumber);
     expect(isPCAP).toBeTruthy();
   });
+
+  it("should return true when given an Array<number> of a pcap file and using the isEXE() function", () => {
+    const fileArrayNumber: Array<number> = [
+      77, 90, 144, 0, 3, 0, 0, 0, 4, 0, 0, 0, 255, 255, 0, 0, 184, 0, 0, 0, 0,
+      0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0,
+    ];
+    const isEXE: boolean = fileTypeChecker.isEXE(fileArrayNumber);
+    expect(isEXE).toBeTruthy();
+  });
 });

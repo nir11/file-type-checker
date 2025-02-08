@@ -56,4 +56,15 @@ describe("detectFile", () => {
     expect(detectedFile.mimeType).toBe("application/vnd.tcpdump.pcap");
     expect(detectedFile.signature.sequence).toEqual(["d4", "c3", "b2", "a1"]);
   });
+
+  it("should detect the file type of an Array<number> as an exe file", () => {
+    const file: Array<number> = [
+      77, 90, 144, 0, 3, 0, 0, 0, 4, 0, 0, 0, 255, 255, 0, 0, 184, 0, 0, 0, 0,
+      0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0,
+    ];
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
+    expect(detectedFile.extension).toBe("exe");
+    expect(detectedFile.mimeType).toBe("application/x-msdownload");
+    expect(detectedFile.signature.sequence).toEqual(["4d", "5a"]);
+  });
 });

@@ -53,6 +53,45 @@ export class OtherTypes {
     ],
   };
 
+  static EXE: FileInfo = {
+    extension: "exe",
+    mimeType: "application/x-msdownload", // 'application/x-dosexec' is a subtype of 'application/x-msdownload', therefore it is not necessary to include it (https://web.archive.org/web/20160629113130/http://www.webarchive.org.uk/interject/types/application/x-dosexec)
+    description: "Windows/DOS executable file and its descendants",
+    signatures: [
+      {
+        sequence: [0x4d, 0x5a],
+        compatibleExtensions: [
+          "acm",
+          "ax",
+          "cpl",
+          "com",
+          "dll",
+          "drv",
+          "efi",
+          "fon",
+          "iec",
+          "ime",
+          "mui",
+          "ocx",
+          "olb",
+          "pif",
+          "qts",
+          "qtx",
+          "rs",
+          "sys",
+          "scr",
+          "tsp",
+          "vbx",
+          "vxd",
+        ],
+      },
+      {
+        sequence: [0x5a, 0x4d],
+        description: "DOS ZM executable (rare)",
+      },
+    ],
+  };
+
   static INDD: FileInfo = {
     extension: "indd",
     mimeType: "application/x-indesign",
