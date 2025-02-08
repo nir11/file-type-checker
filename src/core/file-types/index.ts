@@ -76,6 +76,7 @@ export class FileTypes {
   static ELF: FileInfo = OtherTypes.ELF;
   static EXE: FileInfo = OtherTypes.EXE;
   static INDD: FileInfo = OtherTypes.INDD;
+  static MACHO: FileInfo = OtherTypes.MACHO;
   static ORC: FileInfo = OtherTypes.ORC;
   static PARQUET: FileInfo = OtherTypes.PARQUET;
   static PCAP: FileInfo = OtherTypes.PCAP;

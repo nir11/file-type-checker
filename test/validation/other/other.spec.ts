@@ -47,4 +47,13 @@ describe("validateFileType", () => {
     const isEXE: boolean = fileTypeChecker.isEXE(fileArrayNumber);
     expect(isEXE).toBeTruthy();
   });
+
+  it("should return true when given an Array<number> of a pcap file and using the isMACHO() function", () => {
+    const fileArrayNumber: Array<number> = [
+      207, 250, 237, 254, 7, 0, 0, 1, 3, 0, 0, 128, 2, 0, 0, 0, 16, 0, 0, 0,
+      216, 7, 0, 0, 133, 0, 32, 0, 0, 0, 0, 0,
+    ];
+    const isMACHO: boolean = fileTypeChecker.isMACHO(fileArrayNumber);
+    expect(isMACHO).toBeTruthy();
+  });
 });
