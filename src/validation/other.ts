@@ -28,6 +28,18 @@ export function isELF(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 }
 
 /**
+ * Determine if file content contains a valid 'exe' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'exe' in file content, otherwise false
+ */
+export function isEXE(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "exe");
+}
+
+/**
  * Determine if file content contains a valid 'indd' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
