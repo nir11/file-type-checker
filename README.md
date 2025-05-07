@@ -326,7 +326,7 @@ To ensure the best performance and avoid excessive memory usage, follow these be
     - This reduces unnecessary file I/O and memory consumption.
     - ✅ Node.js example (read first 64 bytes for detection)
 
-      ```
+      ```js
       import fileTypeChecker from "file-type-checker";
       import fs from "fs";
       import path from "path";
@@ -346,7 +346,7 @@ To ensure the best performance and avoid excessive memory usage, follow these be
 
     - ✅ Browser example (read first 64 bytes using file.slice() ):
 
-      ```
+      ```js
       import fileTypeChecker from "file-type-checker";
 
       const handleFileInputChange = async (event) => {
@@ -373,7 +373,7 @@ To ensure the best performance and avoid excessive memory usage, follow these be
     - Process files in small chunks instead of reading everything at once.
     - ✅ Node.js example (read large files in chunks)
 
-      ```
+      ```js
       import fileTypeChecker from "file-type-checker";
       import fs from "fs";
 
@@ -399,7 +399,7 @@ To ensure the best performance and avoid excessive memory usage, follow these be
 
     - ✅ Browser example (read large files using streams)
 
-      ```
+      ```js
       import fileTypeChecker from "file-type-checker";
 
       const readFileInChunks = async (file, chunkSize = 64 * 1024) => {
