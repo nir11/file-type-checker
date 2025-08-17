@@ -188,6 +188,18 @@ export class ImageTypes {
     ],
   };
 
+  static APNG: FileInfo = {
+    extension: "png",
+    mimeType: "image/apng",
+    description:
+      "APNG is an extension of the PNG format, adding support for animated images.",
+    signatures: [
+      {
+        sequence: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a],
+      },
+    ],
+  };
+
   static PNG: FileInfo = {
     extension: "png",
     mimeType: "image/png",

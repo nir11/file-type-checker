@@ -71,5 +71,14 @@ export function detectFile(
   );
   if (!detectedType) return undefined;
 
+  if (["png", "apng"].includes(detectedType)) {
+    //png and apng share the same signature, but have different mime types
+    for (const df of detectedFiles) {
+      const check = df.mimeType.replace("image/", "");
+      if (check === detectedType) return df;
+    }
+    return undefined;
+  }
+
   return detectedFiles.find((df) => df.extension === detectedType);
 }

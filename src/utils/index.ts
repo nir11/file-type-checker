@@ -184,3 +184,30 @@ export function isHeicSignatureIncluded(fileChunk: Array<number>): boolean {
   // Check if any of the HEIC signatures are included in the byte string
   return heicSignatures.some((signature) => byteString.includes(signature));
 }
+
+/**
+ * Determine if a file chunk contains the "Animation Control Chunk".
+ * APNG files typically have an 'acTL' chunk, which is an ancillary chunk as defined in the PNG Specification.
+ * It must appear before the first `IDAT` chunk within a valid PNG stream.
+ * https://wiki.mozilla.org/APNG_Specification
+ *
+ * @param fileChunk A chunk from the beginning of a file content, represented as an array of numbers.
+ * @returns {boolean} True if found a APNG signature in the fileChunk, otherwise false.
+ */
+export function isACTLSignatureIncluded(fileChunk: Array<number>): boolean {
+  // Convert the first part of the file chunk to a string to check for signatures
+  // const byteString = fileChunk.map((num) => String.fromCharCode(num)).join("");
+
+  const byteString = String.fromCharCode(...fileChunk);
+
+  const acTLSignatures = "acTL";
+
+  // Check if any of the acTL signature is included in the byte string
+  // const hasACTLSignature = acTLSignatures
+  //   .split("")
+  //   .some((signature) => byteString.includes(signature));
+
+  const hasACTLSignature = byteString.includes("acTL");
+
+  return hasACTLSignature;
+}

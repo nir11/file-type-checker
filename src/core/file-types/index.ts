@@ -1,6 +1,7 @@
 import {
   fetchFromObject,
   findMatroskaDocTypeElements,
+  isACTLSignatureIncluded,
   isAvifStringIncluded,
   isFlvStringIncluded,
   isftypStringIncluded,
@@ -15,6 +16,8 @@ import { isFLV, isHEIC, isM4V, isMKV, isWEBM } from "../../validation";
 import { FileInfo, FileSignature } from "../types";
 
 export const FILE_TYPES_REQUIRED_ADDITIONAL_CHECK: Array<string> = [
+  "apng",
+  "png",
   "m4v",
   "flv",
   "mp4",
@@ -38,6 +41,7 @@ export class FileTypes {
 
   // image
   static AVIF: FileInfo = ImageTypes.AVIF;
+  static APNG: FileInfo = ImageTypes.APNG;
   static BMP: FileInfo = ImageTypes.BMP;
   static BPG: FileInfo = ImageTypes.BPG;
   static CR2: FileInfo = ImageTypes.CR2;
@@ -183,6 +187,10 @@ export class FileTypes {
     } else if (detectedExtensions.some((de) => ["avif"].includes(de))) {
       const isAvif = isAvifStringIncluded(fileChunk);
       if (isAvif) return "avif";
+    } else if (detectedExtensions.some((de) => ["png", "apng"].includes(de))) {
+      const hasACTLSignature = isACTLSignatureIncluded(fileChunk);
+      if (hasACTLSignature) return "apng";
+      return "png";
     }
     return undefined;
   }

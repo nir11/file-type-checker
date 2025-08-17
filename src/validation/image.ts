@@ -1,6 +1,7 @@
 import { FileTypes } from "../core";
 import {
   getFileChunk,
+  isACTLSignatureIncluded,
   isAvifStringIncluded,
   isHeicSignatureIncluded,
   isftypStringIncluded,
@@ -154,6 +155,23 @@ export function isPGM(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 }
 
 /**
+ * Determine if file content contains a valid 'apng' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'apng' in file content, otherwise false
+ */
+export function isAPNG(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  const hasApngSignature = FileTypes.checkByFileType(fileChunk, "apng");
+  if (!hasApngSignature) return false;
+
+  return isACTLSignatureIncluded(fileChunk);
+}
+
+/**
  * Determine if file content contains a valid 'png' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
@@ -163,6 +181,8 @@ export function isPGM(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 export function isPNG(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
   const fileChunk: Array<number> = getFileChunk(file);
   return FileTypes.checkByFileType(fileChunk, "png");
+
+  // TODO
 }
 
 /**
