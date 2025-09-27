@@ -50,20 +50,38 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Bump version and tag
+      # Bump first so the built files get the new version
+      - name: Bump version
         env:
           BUMP: ${{ inputs.bump }}
         run: npm version "$BUMP" -m "v%s"
 
-      - name: Push commit and tags
+      # Build the package (creates dist/ directory)
+      - name: Build package
+        run: yarn build
+
+      # Display what will be published
+      - name: Preview package contents
+        run: npm pack --dry-run
+
+      # Publish to npm. If this fails, we have not pushed the tag/commit yet.
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Push the version bump commit and tag
+      - name: Push commit and tag
         run: |
           git push origin HEAD
           git push origin --tags
 
+      # Read the new version from package.json
       - name: Read new version
         id: ver
         run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
+      # Build a new GitHub Release with notes from the commits
       - name: Build release notes from commits
         id: notes
         shell: bash
@@ -75,17 +93,17 @@ jobs:
           else
             RANGE="$CURR_TAG"
           fi
-          BODY=$(git log --pretty=format:"- %s" $RANGE | sed '/^$/d')
+          BODY=$(
+            git log --pretty=format:"- %s" $RANGE \
+              | sed '/^$/d' \
+              | grep -E -v '^- v[0-9]+\.[0-9]+\.[0-9]+$'
+          )
           [ -z "$BODY" ] && BODY="- Release $CURR_TAG"
           echo "body<<EOF" >> $GITHUB_OUTPUT
           echo "$BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
+      # Create the GitHub Release
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
