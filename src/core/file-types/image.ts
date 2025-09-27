@@ -229,6 +229,33 @@ export class ImageTypes {
     ],
   };
 
+  static TIFF: FileInfo = {
+    extension: "tiff",
+    mimeType: "image/tiff",
+    description:
+      "TIFF is a raster image format used for high-quality scanning, publishing, and photography",
+    signatures: [
+      {
+        sequence: [0x49, 0x49, 0x2a, 0x00],
+        compatibleExtensions: ["tif"],
+      },
+      {
+        sequence: [0x4d, 0x4d, 0x00, 0x2a],
+        compatibleExtensions: ["tif"],
+      },
+      {
+        sequence: [0x49, 0x49, 0x2b, 0x00],
+        compatibleExtensions: ["tif"],
+        description: "BigTIFF files. Tagged Image File Format files > 4 GB",
+      },
+      {
+        sequence: [0x4d, 0x4d, 0x00, 0x2b],
+        compatibleExtensions: ["tif"],
+        description: "BigTIFF files. Tagged Image File Format files > 4 GB",
+      },
+    ],
+  };
+
   static WEBP: FileInfo = {
     extension: "webp",
     mimeType: "image/webp",
