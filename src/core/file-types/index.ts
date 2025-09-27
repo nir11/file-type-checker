@@ -43,6 +43,7 @@ export class FileTypes {
   static CR2: FileInfo = ImageTypes.CR2;
   static EXR: FileInfo = ImageTypes.EXR;
   static GIF: FileInfo = ImageTypes.GIF;
+  static HEIC: FileInfo = ImageTypes.HEIC;
   static ICO: FileInfo = ImageTypes.ICO;
   static JPEG: FileInfo = ImageTypes.JPEG;
   static PBM: FileInfo = ImageTypes.PBM;
@@ -50,8 +51,8 @@ export class FileTypes {
   static PNG: FileInfo = ImageTypes.PNG;
   static PPM: FileInfo = ImageTypes.PPM;
   static PSD: FileInfo = ImageTypes.PSD;
+  static TIFF: FileInfo = ImageTypes.TIFF;
   static WEBP: FileInfo = ImageTypes.WEBP;
-  static HEIC: FileInfo = ImageTypes.HEIC;
 
   // video
   static AVI: FileInfo = VideoTypes.AVI;

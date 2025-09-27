@@ -56,4 +56,13 @@ describe("image validation", () => {
     const isHEIC: boolean = fileTypeChecker.isHEIC(fileArrayNumber);
     expect(isHEIC).toBeTruthy();
   });
+
+  it("should return true when given an Array<number> of a tiff file and using the isTIFF() function", () => {
+    const fileArrayNumber: Array<number> = [
+      0x49, 0x49, 0x2a, 0x00, 0x08, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x01, 0x00,
+    ];
+
+    const isTIFF: boolean = fileTypeChecker.isTIFF(fileArrayNumber);
+    expect(isTIFF).toBeTruthy();
+  });
 });

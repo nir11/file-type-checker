@@ -90,6 +90,7 @@ Using npm:
 | sqlite |
 | stl    |
 | swf    |
+| tiff   |
 | ttf    |
 | wav    |
 | webm   |
@@ -560,6 +561,7 @@ const isRTF = fileTypeChecker.isRTF(file); // Returns true if the file includes 
 const isSQLite = fileTypeChecker.isSQLite(file); // Returns true if the file includes a valid SQLite database file signature
 const isSTL = fileTypeChecker.isSTL(file); // Returns true if the file includes a valid STL 3D model file signature
 const isSWF = fileTypeChecker.isSWF(file); // Returns true if the file includes a valid SWF file signature
+const isTIFF = fileTypeChecker.isTIFF(file); // Returns true if the file includes a valid TIFF font file signature
 const isTTF = fileTypeChecker.isTTF(file); // Returns true if the file includes a valid TrueType font file signature
 const isWAV = fileTypeChecker.isWAV(file); // Returns true if the file includes a valid WAV audio file signature
 const isWEBM = fileTypeChecker.isWEBM(file); // Returns true if the file includes a valid WebM video file signature
@@ -699,13 +701,23 @@ Returns a `boolean` indicating whether the file includes a valid PSD image signa
 
 </details>
 
-<details><summary>fileTypeChecker.isTTF(file)</summary>
+<details><summary>fileTypeChecker.isTIFF(file)</summary>
 
-Checks whether a file is a TTF image by inspecting its file signature.
+Checks whether a file is a TIFF image by inspecting its file signature.
 
 Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
 
-Returns a `boolean` indicating whether the file includes a valid TTF image signature.
+Returns a `boolean` indicating whether the file includes a valid TIFF image signature.
+
+</details>
+
+<details><summary>fileTypeChecker.isWEBP(file)</summary>
+
+Checks whether a file is a WEBP image by inspecting its file signature.
+
+Parameters: - `file` : `Array<number>`, `ArrayBuffer`, or `Uint8Array` - Binary data represents the file content.
+
+Returns a `boolean` indicating whether the file includes a valid WEBP image signature.
 
 </details>
 

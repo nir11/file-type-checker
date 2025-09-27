@@ -190,6 +190,20 @@ export function isPSD(file: Array<number> | ArrayBuffer | Uint8Array): boolean {
 }
 
 /**
+ * Determine if file content contains a valid 'tiff' file signature
+ *
+ * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array
+ *
+ * @returns {boolean} True if found a signature of type 'tiff' in file content, otherwise false
+ */
+export function isTIFF(
+  file: Array<number> | ArrayBuffer | Uint8Array
+): boolean {
+  const fileChunk: Array<number> = getFileChunk(file);
+  return FileTypes.checkByFileType(fileChunk, "tiff");
+}
+
+/**
  * Determine if file content contains a valid 'webp' file signature
  *
  * @param file File content represents in Array<number> / ArrayBuffer / Uint8Array

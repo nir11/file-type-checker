@@ -54,4 +54,14 @@ describe("detectFile", () => {
     expect(detectedFile.extension).toBe("heic");
     expect(detectedFile.mimeType).toBe("image/heic");
   });
+
+  it("should detect the file type of an Array<number> as a tiff file", () => {
+    const file: Array<number> = [
+      0x49, 0x49, 0x2a, 0x00, 0x08, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x01, 0x00,
+    ];
+
+    const detectedFile = fileTypeChecker.detectFile(file) as DetectedFileInfo;
+    expect(detectedFile.extension).toBe("tiff");
+    expect(detectedFile.mimeType).toBe("image/tiff");
+  });
 });
