@@ -77,10 +77,17 @@
   ],
   "author": "Nir Almog",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "bugs": {
     "url": "https://github.com/nir11/file-type-checker/issues"
   },
   "homepage": "https://github.com/nir11/file-type-checker#readme",
+  "resolutions": {
+    "@istanbuljs/schema/js-yaml": "3.14.2",
+    "js-yaml": "4.1.1"
+  },
   "devDependencies": {
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
