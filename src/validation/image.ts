@@ -3,9 +3,7 @@ import {
   getFileChunk,
   isAvifStringIncluded,
   isHeicSignatureIncluded,
-  isftypStringIncluded,
 } from "../utils";
-import { isM4V } from "./video";
 
 /**
  * Determine if file content contains a valid 'avif' file signature

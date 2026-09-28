@@ -2,8 +2,6 @@ import {
   fetchFromObject,
   findMatroskaDocTypeElements,
   isAvifStringIncluded,
-  isFlvStringIncluded,
-  isftypStringIncluded,
 } from "../../utils";
 import { AudioTypes } from "./audio";
 import { CompressedTypes } from "./compressed";
